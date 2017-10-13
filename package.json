@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress",
+    "build": "webpack --config ./webpack.config.js --progress",
     "prestart": "npm run build",
     "start": "babel-node src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
