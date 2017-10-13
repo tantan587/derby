@@ -1,1 +1,1 @@
-web: node --inspect=5858 ./src/server/index.js
+web: babel-node --inspect=5858 ./src/server/index.js
