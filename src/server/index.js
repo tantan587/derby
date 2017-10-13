@@ -7,7 +7,7 @@ var dotenv = require('dotenv');
 var React = require('react')
 var { renderToString} = require('react-dom/server')
 var Menu = require('../common/components/Menu')
-var data from ('../assets/recipes.json')
+var data = require('../assets/recipes.json')
 
 dotenv.load();
 global.React = React
