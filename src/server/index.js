@@ -4,10 +4,10 @@ const path = require('path');
 const generatePassword = require('password-generator');
 var {Pool, Client} = require('pg');
 var dotenv = require('dotenv');
-import React from 'react'
-import { renderToString} from 'react-dom/server'
-import Menu from '../common/components/Menu'
-import data from '../assets/recipes.json'
+var React = require('react')
+var { renderToString} = require('react-dom/server')
+var Menu = require('../common/components/Menu')
+var data from ('../assets/recipes.json')
 
 dotenv.load();
 global.React = React
