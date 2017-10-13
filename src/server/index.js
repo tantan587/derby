@@ -1,13 +1,14 @@
 'use strict';
-const express = require('express');
+
 const path = require('path');
 const generatePassword = require('password-generator');
 var {Pool, Client} = require('pg');
 var dotenv = require('dotenv');
-var React = require('react')
-var { renderToString} = require('react-dom/server')
-var Menu = require('../common/components/Menu')
-var data = require('../assets/recipes.json')
+import React from 'react'
+import express from 'express'
+import { renderToString } from 'react-dom/server'
+import Menu from '../common/components/Menu'
+import data from '../assets/recipes.json'
 
 dotenv.load();
 global.React = React

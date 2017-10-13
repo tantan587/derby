@@ -21250,7 +21250,7 @@ var Recipe = function Recipe(_ref) {
         steps = _ref.steps;
     return React.createElement(
         'section',
-        { id: name.toLowerCase().replace(/ /g, '-') },
+        { id: name.replace(/ /g, '-') },
         React.createElement(
             'h1',
             null,
