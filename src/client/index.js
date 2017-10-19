@@ -1,14 +1,22 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
-import Menu from '../common/components/Menu'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import App from '../common/components/App'
+import storeFactory from '../common/store'
+
+const store = storeFactory(false, window.__INITIAL_STATE__)
 
 window.React = React
+window.store = store
 
-alert('bundle loaded, hydrating browser')
+console.log('rendered from here...')
 
 hydrate(
-    <Menu recipes={__DATA__} />,
-    document.getElementById("react-container")
+    <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+    </Provider>,
+    document.getElementById('react-container')
 )
-
-alert('render complete')
