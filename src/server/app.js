@@ -32,7 +32,7 @@ const buildHTMLPage = ({html, state, css}) => `
         <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no" />
         <meta charset="utf-8">
         <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-        <title>Universal Color Organizer</title>
+        <title>Derby</title>
         <style>${staticCSS}</style>
     </head>
     <body>
