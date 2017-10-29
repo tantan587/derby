@@ -2,10 +2,40 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import ColorList from './ui/ColorList'
 import ColorDetails from './ui/ColorDetails'
+import Login from './ui/Login'
+import Signup from './ui/Signup'
+import Home from './ui/Home'
 import AddColorForm from './ui/AddColorForm'
-import { addColor, rateColor, removeColor } from '../actions'
+import { addColor, rateColor, removeColor,clickedLogin, clickedSignup} from '../actions'
 import { findById } from '../lib/array-helpers'
 import { sortColors } from '../lib/array-helpers'
+
+export const HomePage = connect(
+    null,
+    dispatch =>
+        ({
+        })
+)(Home)
+
+export const LoginPage = connect(
+    null,
+    dispatch =>
+        ({
+            onLogin(username, password) {
+                dispatch(clickedLogin(username,password))
+            }
+        })
+)(Login)
+
+export const SignupPage = connect(
+    null,
+    dispatch =>
+        ({
+            onSignup(username,firstname,lastname,email,password) {
+                dispatch(clickedSignup(username,firstname,lastname,email,password))
+            }
+        })
+)(Signup)
 
 export const NewColor = connect(
     null,

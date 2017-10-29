@@ -12,7 +12,7 @@ module.exports = {
         filename: "bundle.js",
         sourceMapFilename: "bundle.map"
     },
-    devtool: "#source-map",
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -64,6 +64,9 @@ module.exports = {
             cssProcessor: require('cssnano'),
             cssProcessorOptions: {discardComments: {removeAll: true}},
             canPrint: true
+        }),
+         new webpack.LoaderOptionsPlugin({
+        debug: true
         })
     ]
 }

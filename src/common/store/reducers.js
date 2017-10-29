@@ -1,5 +1,30 @@
 import C from '../constants'
 
+
+export const user = (state = {}, action={ type: null }) => {
+    switch(action.type)
+    {
+        case C.SIGNUP_SUCCESS:
+        return {
+                id: action.id,
+                firstName: action.firstName,
+                lastName: action.lastName,
+                userName: action.userName,
+                loggedIn: true
+            }
+            /*return 
+            {
+                id: action.id,
+                firstName: action.firstName,
+                lastName: action.lastName,
+                userName: action.userName,
+                loggedIn: true
+            }*/
+        default :
+            return state    
+    }
+}
+
 export const color = (state = {}, action={ type: null }) => {
     switch (action.type) {
         case C.ADD_COLOR:

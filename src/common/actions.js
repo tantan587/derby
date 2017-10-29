@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { browserHistory } from 'react-router-dom';
 
 const parseResponse = response => response.json()
 
@@ -9,6 +10,22 @@ const fetchThenDispatch = (dispatch, url, method, body) =>
         .then(parseResponse)
         .then(dispatch)
         .catch(logError)
+
+export const clickedLogin = (username, password) => dispatch =>
+    fetchThenDispatch(
+        dispatch,
+        '/api/login',
+        'POST',
+        JSON.stringify({username, password})
+    )
+
+export const clickedSignup = (username,firstname,lastname,email,password) => dispatch =>
+    fetchThenDispatch(
+        dispatch,
+        '/api/signup',
+        'POST',
+        JSON.stringify({username,firstname,lastname,email,password})
+    )
 
 export const addColor = (title, color) => dispatch =>
     fetchThenDispatch(

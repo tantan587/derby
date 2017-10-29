@@ -6,7 +6,8 @@ import { Provider } from 'react-redux'
 import { compose } from 'redux'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
-import api from './derby-api'
+import derbyapi from './derby-api'
+import authapi from './auth-api'
 import App from '../common/components/App'
 import storeFactory from '../common/store'
 import initialState from '../data/initialState.json'
@@ -89,5 +90,6 @@ export default express()
     .use(logger)
     .use(fileAssets)
     .use(addStoreToRequestPipeline)
-    .use('/api', api)
+    .use('/api', derbyapi)
+    .use('/api', authapi)
     .use(respond)
