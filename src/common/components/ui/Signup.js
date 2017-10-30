@@ -15,8 +15,8 @@ class Signup extends Component {
         this.state={
         	username:'',
         	password:'',
-        	firstname:'',
-        	lastname:'',
+        	first_name:'',
+        	last_name:'',
         	email:'',
         }
     }
@@ -25,8 +25,8 @@ class Signup extends Component {
         const { onSignup } = this.props
         e.preventDefault()
         onSignup(this.state.username,
-         this.state.firstname,
-          this.state.lastname,
+         this.state.first_name,
+          this.state.last_name,
           this.state.email, 
           this.state.password )
     }
@@ -54,13 +54,13 @@ class Signup extends Component {
 		       		<TextField
 		             hintText="Enter your First Name"
 		             floatingLabelText="First Name"
-		             onChange = {(event,newValue) => this.setState({firstname:newValue})}
+		             onChange = {(event,newValue) => this.setState({first_name:newValue})}
 		             />
 		           <br/>
 		           <TextField
 		             hintText="Enter your Last Name"
 		             floatingLabelText="Last Name"
-		             onChange = {(event,newValue) => this.setState({lastname:newValue})}
+		             onChange = {(event,newValue) => this.setState({last_name:newValue})}
 		             />
 		           <br/>
 		           <TextField

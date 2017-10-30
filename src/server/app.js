@@ -18,13 +18,13 @@ const fileAssets = express.static(path.join(__dirname, '../../assets'))
 const serverStore = storeFactory(true, initialState)
 
 
-serverStore.subscribe(() =>
+/*serverStore.subscribe(() =>
     fs.writeFile(
         path.join(__dirname, '../data/initialState.json'),
         JSON.stringify(serverStore.getState()),
         error => (error) ? console.log("Error saving state!", error) : null
     )
-)
+)*/
 
 const buildHTMLPage = ({html, state, css}) => `
 <!DOCTYPE html>

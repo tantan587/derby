@@ -13,16 +13,6 @@ router.get("/colors", (req, res) =>
     res.status(200).json(req.store.getState().colors)
 )
 
-/*router.post("/signup", (req, res) =>
-    dispatchAndRespond(req, res, {
-        type: C.SIGNUP_SUCCESS,
-        id: v4(),
-        lastName : req.body.lastName,
-        firstName : req.body.firstName,
-        userName : req.body.userName
-    })
-)*/
-
 router.post("/colors", (req, res) =>
     dispatchAndRespond(req, res, {
         type: C.ADD_COLOR,

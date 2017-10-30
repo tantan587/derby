@@ -5,21 +5,35 @@ export const user = (state = {}, action={ type: null }) => {
     switch(action.type)
     {
         case C.SIGNUP_SUCCESS:
+        case C.LOGIN_SUCCESS:
         return {
                 id: action.id,
-                firstName: action.firstName,
-                lastName: action.lastName,
-                userName: action.userName,
-                loggedIn: true
+                first_name: action.first_name,
+                last_name: action.last_name,
+                username: action.username,
+                loggedIn: true,
+                message: ""
             }
-            /*return 
-            {
-                id: action.id,
-                firstName: action.firstName,
-                lastName: action.lastName,
-                userName: action.userName,
-                loggedIn: true
-            }*/
+        case C.SIGNUP_FAIL:
+        case C.LOGIN_FAIL_USERNAME:
+        case C.LOGIN_FAIL_PASSWORD:
+            return {
+                id: "",
+                first_name: "",
+                last_name: "",
+                username: "",
+                loggedIn: false,
+                message: action.message
+            }
+        case C.LOGOUT:
+        return {
+                id: "",
+                first_name: "",
+                last_name: "",
+                username: "",
+                loggedIn: false,
+                message: ""
+            }
         default :
             return state    
     }

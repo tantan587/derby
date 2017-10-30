@@ -5,22 +5,23 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import '../../../stylesheets/Menu.scss'
 
-const Home = ({user={}}) =>
+const Logout = ({user={}, onLogout=f=>f}) =>
 	<div>
         <MuiThemeProvider>
           <div>
           	<AppBar
-             	title="Welcome To Derby"/>
+             	title="Do you want to Log out?"/>
      			<RaisedButton 
-         			label="Sign Up" 
+         			label="Yes" 
          			primary={true} 
                  		/*style={style}*/
-             		 containerElement={<Link to="/signup" />}/>
+              containerElement={<Link to="/" />}
+       		    onClick={() => onLogout()}/>
           <RaisedButton 
-              label= {user.loggedIn ? "Log Out" : "Log In"} 
+              label= "No" 
               primary={true} 
                     /*style={style}*/
-              containerElement={<Link to={user.loggedIn ? "/logout" : "/login"} />}/>
+              containerElement={<Link to="/" />}/>
          	</div>
      	</MuiThemeProvider>
   </div>
@@ -29,4 +30,4 @@ const Home = ({user={}}) =>
     </nav>*/
 
 
-export default Home
+export default Logout

@@ -21,6 +21,7 @@ const serverLogger = store => next => action => {
     console.log('\n  dispatching server action\n')
     console.log(action)
     console.log('\n')
+    //console.log('next state', store.getState())
     return next(action)
 }
 
@@ -30,9 +31,11 @@ const middleware = server => [
 ]
 
 const storeFactory = (server = false, initialState = {}) =>
-    applyMiddleware(...middleware(server))(createStore)(
+    {
+        return applyMiddleware(...middleware(server))(createStore)(
         combineReducers({colors, user}),
         initialState
-    )
+        )
+    }
 
 export default storeFactory

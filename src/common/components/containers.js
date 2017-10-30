@@ -5,20 +5,27 @@ import ColorDetails from './ui/ColorDetails'
 import Login from './ui/Login'
 import Signup from './ui/Signup'
 import Home from './ui/Home'
+import Logout from './ui/Logout'
 import AddColorForm from './ui/AddColorForm'
-import { addColor, rateColor, removeColor,clickedLogin, clickedSignup} from '../actions'
+import { addColor, rateColor, removeColor,clickedLogin, clickedSignup, clickedLogout} from '../actions'
 import { findById } from '../lib/array-helpers'
 import { sortColors } from '../lib/array-helpers'
 
 export const HomePage = connect(
-    null,
+    state =>
+        ({
+            user : state.user
+        }),
     dispatch =>
         ({
         })
 )(Home)
 
 export const LoginPage = connect(
-    null,
+    state =>
+        ({
+            user : state.user
+        }),
     dispatch =>
         ({
             onLogin(username, password) {
@@ -27,12 +34,25 @@ export const LoginPage = connect(
         })
 )(Login)
 
-export const SignupPage = connect(
+export const LogoutPage = connect(
     null,
     dispatch =>
         ({
-            onSignup(username,firstname,lastname,email,password) {
-                dispatch(clickedSignup(username,firstname,lastname,email,password))
+            onLogout() {
+                dispatch(clickedLogout())
+            }
+        })
+)(Logout)
+
+export const SignupPage = connect(
+    state =>
+        ({
+            user : state.user
+        }),
+    dispatch =>
+        ({
+            onSignup(username,first_name,last_name,email,password) {
+                dispatch(clickedSignup(username,first_name,last_name,email,password))
             }
         })
 )(Signup)

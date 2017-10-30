@@ -19,12 +19,20 @@ export const clickedLogin = (username, password) => dispatch =>
         JSON.stringify({username, password})
     )
 
-export const clickedSignup = (username,firstname,lastname,email,password) => dispatch =>
+export const clickedLogout = () => dispatch =>
+    fetchThenDispatch(
+        dispatch,
+        '/api/logout',
+        'POST',
+        JSON.stringify({})
+    )
+
+export const clickedSignup = (username,first_name,last_name,email,password) => dispatch =>
     fetchThenDispatch(
         dispatch,
         '/api/signup',
         'POST',
-        JSON.stringify({username,firstname,lastname,email,password})
+        JSON.stringify({username,first_name,last_name,email,password})
     )
 
 export const addColor = (title, color) => dispatch =>
