@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NavLink as Link } from 'react-router-dom'
+import { NavLink as Link, Redirect } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -31,6 +31,18 @@ class Signup extends Component {
           this.state.password )
     }
 
+    keypress(e) {
+    	if (e.key === 'Enter') { 
+        	const { onSignup } = this.props
+        	e.preventDefault()
+        	onSignup(this.state.username,
+         		this.state.first_name,
+	          	this.state.last_name,
+	          	this.state.email, 
+	          	this.state.password)
+    	}
+    }
+
     render() {
     	var styles = {
 		    tabLink : {
@@ -39,8 +51,14 @@ class Signup extends Component {
 			    justifyContent:"center"
 			}
 		}
+		if(this.props.user.loggedIn)
+		{
+			return (
+				<Redirect to="/colormenu"/>
+			)
+		}
         return (
-			<div>
+			<div onKeyPress={(event) => this.keypress(event)}>
 		        <MuiThemeProvider>
 		          <div>
 		          	<AppBar
