@@ -10,7 +10,9 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'assets'),
         filename: "bundle.js",
-        sourceMapFilename: "bundle.map"
+        //sourceMapFilename: "bundle.map",
+        //publicPath: path.join(__dirname, 'assets')
+        //publicPath: "http://localhost:3000/"
     },
     devtool: 'inline-source-map',
     module: {
@@ -22,6 +24,9 @@ module.exports = {
                 query: {
                     presets: ['env', 'stage-0', 'react', "es2015"]
                 }
+            },
+            {
+                test: /\.(png|jpg)$/, loader: 'file-loader?limit=20000'//name=/src/images/[name].[ext]'
             },
             {
                 test: /\.css$/,
@@ -55,7 +60,7 @@ module.exports = {
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
+            //sourceMap: true,
             warnings: false,
             mangle: false
         }),

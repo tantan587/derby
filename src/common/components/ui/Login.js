@@ -7,6 +7,32 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import '../../../stylesheets/Menu.scss'
 
+const style = {
+loginText: {
+    position: 'absolute',
+    width: '100%',
+    textAlign: 'center',
+    color: 'black',
+    paddingTop: '30px'
+  },
+  loginTitle: {
+    fontSize: '50px'
+  },
+  loginBoard: {
+	position: 'absolute',
+  	top: '50%',
+  	left: '50%',
+  	margin: '-300px 0 0 -120px',
+	},
+
+  sumbitButton: {
+	position: 'absolute',
+  	top: '50%',
+  	left: '50%',
+  	margin: '-150px 0 0 -50px',
+	}
+}
+
 class Login extends Component {
 
     constructor(props) {
@@ -47,28 +73,32 @@ class Login extends Component {
 			)
 		}
         return (
-			<div onKeyPress={(event) => this.keypress(event)}>
-		        <MuiThemeProvider>
-		          <div>
-		          	<AppBar
-		             	title="Login"/>
-		       		<TextField
-		         		hintText="Enter your Username"
-		         		floatingLabelText="Username"
-		         		/*style={styles.tabLink}*/
-		         		onChange = {(event,newValue) => this.setState({username:newValue})}/>
-		           	<br/>
-		         	<TextField
-		           		type="password"
-		           		hintText="Enter your Password"
-		           		floatingLabelText="Password"
-		           		onChange = {(event,newValue) => this.setState({password:newValue})}/>
-		         	<br/>
-		 			<RaisedButton 
-		     			label="Submit" 
-		     			primary={true} 
-		             		/*style={style}*/
-	         		 	onClick={(event) => this.submit(event)}/>
+		<div onKeyPress={(event) => this.keypress(event)}>
+			<div style={style.loginText}>
+			        <h1 style={style.loginTitle}>Log In</h1>
+	        </div>
+	        <MuiThemeProvider>
+	          	<div>
+		          	<div style={style.loginBoard}>
+			       		<TextField
+			         		hintText="Enter your Username"
+			         		floatingLabelText="Username"
+			         		/*style={styles.tabLink}*/
+			         		onChange = {(event,newValue) => this.setState({username:newValue})}/>
+			           	<br/>
+			         	<TextField
+			           		type="password"
+			           		hintText="Enter your Password"
+			           		floatingLabelText="Password"
+			           		onChange = {(event,newValue) => this.setState({password:newValue})}/>
+		         	</div>
+		         	<div style={style.sumbitButton}>
+			 			<RaisedButton 
+			     			label="Submit" 
+			     			primary={true} 
+			             		/*style={style}*/
+		         		 	onClick={(event) => this.submit(event)}/>
+         		 	</div>
          		 	<div>
          		 		{
          		 			(this.props.user.message !=="") ?
@@ -76,9 +106,9 @@ class Login extends Component {
          		 			<p></p>
          		 		}
          		 	</div>
-		         	</div>
-		     	</MuiThemeProvider>
-		  </div>
+	         	</div>
+	     	</MuiThemeProvider>
+	  	</div>
 	  )
     }
 }
