@@ -29,7 +29,7 @@ loginText: {
 	position: 'absolute',
   	top: '50%',
   	left: '50%',
-  	margin: '-150px 0 0 -50px',
+  	margin: '70px 0 0 -50px',
 	}
 }
 

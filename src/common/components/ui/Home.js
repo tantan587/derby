@@ -51,7 +51,10 @@ const Home = ({user={}}) =>
       </div>
       <div style={style.heroText}>
         <h1 style={style.heroTitle}>Derby</h1>
-        <h2>Wins Fantasy League for all Sports</h2>
+        <h2>Draft Teams.</h2>
+        <h2>Watch Games.</h2>
+        <h2>Earn Points.</h2>
+        <h2>Win The Race.</h2>
       </div>
       <div style={style.divideTwo}>
           <div style={style.compareItem}>
