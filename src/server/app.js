@@ -8,6 +8,7 @@ import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 import derbyapi from './derby-api'
 import authapi from './auth-api'
+import leagueapi from './league-api'
 import App from '../common/components/App'
 import storeFactory from '../common/store'
 import initialState from '../data/initialState.json'
@@ -92,4 +93,5 @@ export default express()
     .use(addStoreToRequestPipeline)
     .use('/api', derbyapi)
     .use('/api', authapi)
+    .use('/api', leagueapi)
     .use(respond)

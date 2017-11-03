@@ -37,7 +37,8 @@ class Signup extends Component {
 
     constructor(props) {
         super(props)
-        this.submit = this.submit.bind(this)
+		this.submit = this.submit.bind(this)
+		this.keypress = this.keypress.bind(this)
         this.state={
         	username:'',
         	password:'',

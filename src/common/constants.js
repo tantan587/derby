@@ -9,6 +9,8 @@ const constants = {
     LOGIN_FAIL_PASSWORD: "LOGIN_FAIL_PASSWORD",
     SIGNUP_SUCCESS: "SIGNUP_SUCCESS",
     SIGNUP_FAIL: "SIGNUP_FAIL",
+
+    GET_TEAMS: "GET_TEAMS"
 }
 
 export default constants

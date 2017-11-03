@@ -39,6 +39,18 @@ export const user = (state = {}, action={ type: null }) => {
     }
 }
 
+export const teams = (state = [], action={ type: null }) => {
+    switch(action.type)
+    {
+        case C.GET_TEAMS:
+        return {
+            teams : state.teams
+        }
+        default :
+            return state 
+    }
+}
+
 export const color = (state = {}, action={ type: null }) => {
     switch (action.type) {
         case C.ADD_COLOR:

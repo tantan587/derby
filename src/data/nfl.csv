@@ -1,0 +1,33 @@
+team_id,team,conference,wins,losses,ties,percentage
+100101,Arizona Cardinals,NFC,3,4,0,0.429
+100102,Atlanta Falcons,NFC,4,3,0,0.571
+100103,Baltimore Ravens,AFC,4,4,0,0.500
+100104,Buffalo Bills,AFC,5,2,0,0.714
+100105,Carolina Panthers,NFC,5,3,0,0.625
+100106,Chicago Bears,NFC,3,5,0,0.375
+100107,Cincinnati Bengals,AFC,3,4,0,0.429
+100108,Cleveland Browns,AFC,0,8,0,0.000
+100109,Dallas Cowboys,NFC,4,3,0,0.571
+100110,Denver Broncos,AFC,3,4,0,0.429
+100111,Detroit Lions,NFC,3,4,0,0.429
+100112,Green Bay Packers,NFC,4,3,0,0.571
+100113,Houston Texans,AFC,3,4,0,0.429
+100114,Indianapolis Colts,AFC,2,6,0,0.250
+100115,Jacksonville Jaguars,AFC,4,3,0,0.571
+100116,Kansas City Chiefs,AFC,6,2,0,0.750
+100117,Los Angeles Chargers,AFC,3,5,0,0.375
+100118,Los Angeles Rams,NFC,5,2,0,0.714
+100119,Miami Dolphins,AFC,4,3,0,0.571
+100120,Minnesota Vikings,NFC,6,2,0,0.750
+100121,New England Patriots,AFC,6,2,0,0.750
+100122,New Orleans Saints,NFC,5,2,0,0.714
+100123,New York Giants,NFC,1,6,0,0.143
+100124,New York Jets,AFC,3,5,0,0.375
+100125,Oakland Raiders,AFC,3,5,0,0.375
+100126,Philadelphia Eagles,NFC,7,1,0,0.875
+100127,Pittsburgh Steelers,AFC,6,2,0,0.750
+100128,San Francisco 49ers,NFC,0,8,0,0.000
+100129,Seattle Seahawks,NFC,5,2,0,0.714
+100130,Tampa Bay Buccaneers,NFC,2,5,0,0.286
+100131,Tennessee Titans,AFC,4,3,0,0.571
+100132,Washington Redskins,NFC,3,4,0,0.429

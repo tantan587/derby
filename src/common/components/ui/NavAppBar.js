@@ -22,10 +22,16 @@ export default class NavAppBar extends Component {
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleTitleTouchTap = this.handleTitleTouchTap.bind(this);
+    this.handleStandingsClick = this.handleTitleTouchTap.bind(this);
   }
 
   handleToggle() {
     this.setState({ open: !this.state.open });
+  }
+
+  handleStandingsClick() {
+    handleToggle()
+    this.props.onClickedNFL()
   }
 
   handleTitleTouchTap() {
@@ -70,6 +76,10 @@ export default class NavAppBar extends Component {
               containerElement={<Link to="/contact" />}
               onClick={this.handleToggle}
               primaryText="Contact"/>
+              <ListItem
+              containerElement={<Link to="/standings/nfl" />}
+              onClick={this.handleStandingsClick}
+              primaryText="Standings"/>
           </List>
         </Drawer>
        	</div>
