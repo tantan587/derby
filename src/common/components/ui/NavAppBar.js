@@ -22,7 +22,7 @@ export default class NavAppBar extends Component {
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleTitleTouchTap = this.handleTitleTouchTap.bind(this);
-    this.handleStandingsClick = this.handleTitleTouchTap.bind(this);
+    this.handleStandingsClick = this.handleStandingsClick.bind(this);
   }
 
   handleToggle() {
@@ -30,8 +30,9 @@ export default class NavAppBar extends Component {
   }
 
   handleStandingsClick() {
-    handleToggle()
-    this.props.onClickedNFL()
+    const { onClickedNFL } = this.props
+    this.handleToggle()
+    onClickedNFL()
   }
 
   handleTitleTouchTap() {

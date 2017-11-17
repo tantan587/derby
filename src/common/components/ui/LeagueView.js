@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import {
   Table,
   TableBody,
@@ -57,7 +58,7 @@ const tableData = [
 /**
  * A more complex example, allowing the table height to be set, and key boolean properties to be toggled.
  */
-export default class LeagueView extends Component {
+class LeagueView extends Component {
 
     constructor(props) {
         super(props)
@@ -74,6 +75,7 @@ export default class LeagueView extends Component {
             deselectOnClickaway: true,
             showCheckboxes: true,
             height: '300px',
+            teams: this.props.teams
           };
     }
 
@@ -88,6 +90,7 @@ export default class LeagueView extends Component {
   };
 
   render() {
+    console.log(this.props.teams)
     return (
         <MuiThemeProvider>
       <div>
@@ -109,9 +112,10 @@ export default class LeagueView extends Component {
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Name">Name</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Status">Status</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The ID">Team Name</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Name">Wins</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Status">Losses</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Status">Ties</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -120,28 +124,15 @@ export default class LeagueView extends Component {
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {tableData.map( (row, index) => (
+            {this.props.teams.map( (row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{index}</TableRowColumn>
-                <TableRowColumn>{row.name}</TableRowColumn>
-                <TableRowColumn>{row.status}</TableRowColumn>
+                <TableRowColumn>{row._team}</TableRowColumn>
+                <TableRowColumn>{row._wins}</TableRowColumn>
+                <TableRowColumn>{row._losses}</TableRowColumn>
+                <TableRowColumn>{row._ties}</TableRowColumn>
               </TableRow>
               ))}
           </TableBody>
-          <TableFooter
-            adjustForCheckbox={this.state.showCheckboxes}
-          >
-            <TableRow>
-              <TableRowColumn>ID</TableRowColumn>
-              <TableRowColumn>Name</TableRowColumn>
-              <TableRowColumn>Status</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
-                Super Footer
-              </TableRowColumn>
-            </TableRow>
-          </TableFooter>
         </Table>
 
         <div style={styles.propContainer}>
@@ -213,3 +204,9 @@ export default class LeagueView extends Component {
     );
   }
 }
+
+LeagueView.propTypes = {
+  teams: PropTypes.array
+}
+
+export default LeagueView

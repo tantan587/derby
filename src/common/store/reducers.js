@@ -43,9 +43,17 @@ export const teams = (state = [], action={ type: null }) => {
     switch(action.type)
     {
         case C.GET_TEAMS:
-        return {
-            teams : state.teams
-        }
+        console.log(action.teams)
+        return (
+            [
+                {
+                _team: "yoni",
+                _wins: 5,
+                _losses: 3,
+                _ties: 0
+                }
+            ]
+        )
         default :
             return state 
     }

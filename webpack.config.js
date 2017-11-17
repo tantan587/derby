@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'assets'),
         filename: "bundle.js",
-        //sourceMapFilename: "bundle.map",
+        sourceMapFilename: "bundle.map"
         //publicPath: path.join(__dirname, 'assets')
         //publicPath: "http://localhost:3000/"
     },
@@ -60,7 +60,7 @@ module.exports = {
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
-            //sourceMap: true,
+            sourceMap: true,
             warnings: false,
             mangle: false
         }),

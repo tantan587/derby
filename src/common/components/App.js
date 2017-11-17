@@ -1,16 +1,13 @@
 import { Route, Switch } from 'react-router-dom'
 import Menu from './ui/Menu'
 import Whoops404 from './ui/Whoops404'
-import NavAppBar from './ui/NavAppBar'
-import { HomePage, SignupPage, LoginPage, LogoutPage, Colors, Color, NewColor } from './containers/home-containers'
+import { NavBar, HomePage, SignupPage, LoginPage, LogoutPage, Colors, Color, NewColor } from './containers/home-containers'
 import { LeaguePage } from './containers/leagues-containers'
 import '../../stylesheets/APP.scss'
-import { clickedNFL} from '../actions/leagues-actions'
-
 
 const App = () =>
         <div>
-        <NavAppBar onClickedNFL={() => clickedNFL()}/>
+        <NavBar/>
         <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route path="/login/" component={LoginPage}/>

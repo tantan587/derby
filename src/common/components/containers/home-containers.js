@@ -2,14 +2,26 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import ColorList from '../ui/ColorList'
 import ColorDetails from '../ui/ColorDetails'
+import NavAppBar from '../ui/NavAppBar'
 import Login from '../ui/Login'
 import Signup from '../ui/Signup'
 import Home from '../ui/Home'
 import Logout from '../ui/Logout'
 import AddColorForm from '../ui/AddColorForm'
 import { addColor, rateColor, removeColor,clickedLogin, clickedSignup, clickedLogout} from '../../actions/auth-actions'
+import { clickedNFL} from '../../actions/leagues-actions'
 import { findById } from '../../lib/array-helpers'
 import { sortColors } from '../../lib/array-helpers'
+
+export const NavBar = connect(
+    null,
+    dispatch =>
+        ({
+            onClickedNFL() {
+                dispatch(clickedNFL())
+            }
+        })
+)(NavAppBar)
 
 export const HomePage = connect(
     state =>

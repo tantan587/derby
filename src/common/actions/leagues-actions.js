@@ -14,7 +14,6 @@ export const clickedNFL = () => dispatch =>
     fetchThenDispatch(
         dispatch,
         '/api/nfl',
-        'GET',
-        JSON.stringify({})
+        'GET'
     )
 
