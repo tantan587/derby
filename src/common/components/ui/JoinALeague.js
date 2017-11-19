@@ -4,8 +4,10 @@ class JoinALeague extends Component {
     render() {
         return (
         <div>
-    </div>
-        )}
+        <h1>I AM CAMILA</h1>
+        </div>
+    );
+    }
 }
 
 export default JoinALeague
