@@ -13,7 +13,7 @@ const App = () =>
             <Route path="/login/" component={LoginPage}/>
             <Route path="/logout/" component={LogoutPage}/>
             <Route path="/signup/" component={SignupPage}/>
-            <Route path="/standings/nfl/" component={LeaguePage}/>
+            <Route path="/standings/nba/" component={LeaguePage}/>
             <Route exact path="/colormenu/:id" component={Color} />
             <Route path="/colormenu/"
                 component={({match, location}) => (

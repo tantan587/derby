@@ -10,7 +10,7 @@ const fetchThenDispatch = (dispatch, url, method, body) =>
         .then(dispatch)
         .catch(logError)
 
-export const clickedNFL = () => dispatch =>
+export const clickedStandings = () => dispatch =>
     fetchThenDispatch(
         dispatch,
         '/api/nba',

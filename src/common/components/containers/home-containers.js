@@ -9,7 +9,7 @@ import Home from '../ui/Home'
 import Logout from '../ui/Logout'
 import AddColorForm from '../ui/AddColorForm'
 import { addColor, rateColor, removeColor,clickedLogin, clickedSignup, clickedLogout} from '../../actions/auth-actions'
-import { clickedNFL} from '../../actions/leagues-actions'
+import { clickedStandings} from '../../actions/leagues-actions'
 import { findById } from '../../lib/array-helpers'
 import { sortColors } from '../../lib/array-helpers'
 
@@ -17,8 +17,8 @@ export const NavBar = connect(
     null,
     dispatch =>
         ({
-            onClickedNFL() {
-                dispatch(clickedNFL())
+            onClickedStandings() {
+                dispatch(clickedStandings())
             }
         })
 )(NavAppBar)

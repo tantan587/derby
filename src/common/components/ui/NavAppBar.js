@@ -30,9 +30,9 @@ export default class NavAppBar extends Component {
   }
 
   handleStandingsClick() {
-    const { onClickedNFL } = this.props
+    const { onClickedStandings } = this.props
     this.handleToggle()
-    onClickedNFL()
+    onClickedStandings()
   }
 
   handleTitleTouchTap() {
@@ -78,7 +78,7 @@ export default class NavAppBar extends Component {
               onClick={this.handleToggle}
               primaryText="Contact"/>
               <ListItem
-              containerElement={<Link to="/standings/nfl" />}
+              containerElement={<Link to="/standings/nba" />}
               onClick={this.handleStandingsClick}
               primaryText="Standings"/>
           </List>
