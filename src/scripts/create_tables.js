@@ -12,6 +12,7 @@ function createNbaInfo() {
     knex.schema.withSchema('leagues').createTable('nba_info', function (table) {
     table.decimal('teamid',6,0).primary();
     table.string('key',3);
+    table.string('city');
     table.string('name');
     table.string('conference');
     table.string('division');
