@@ -1,3 +1,4 @@
+
 require('dotenv').config()
 
 var connectionstr = process.env.DATABASE_URL === undefined ? 'postgres://koperman:derbyapp123@localhost:5432/postgres' : process.env.DATABASE_URL
@@ -26,7 +27,7 @@ function createInformation() {
 function createPasswords() {
     knex.schema.withSchema('users').createTable('passwords', function (table) {
     table.string('username').primary();
-    table.string('passowrd')
+    table.string('password')
     })
     .then(result =>
         {
