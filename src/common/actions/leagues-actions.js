@@ -13,7 +13,7 @@ const fetchThenDispatch = (dispatch, url, method, body) =>
 export const clickedNFL = () => dispatch =>
     fetchThenDispatch(
         dispatch,
-        '/api/nfl',
+        '/api/nba',
         'GET'
     )
 

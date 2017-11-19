@@ -1,28 +1,31 @@
 var method = Team.prototype;
 
-function Team(team_id,team,wins, losses, ties) {
-    this._team_id = team_id;
-    this._team = team;
-    this._wins = wins;
-    this._losses = losses;
-    this._ties = ties;
+function Team(team_id,key,city,name,wins,losses,ties) {
+    this.team_id = team_id;
+    this.key = key;
+    this.team = city+ " " + name;
+    this.wins = wins;
+    this.losses = losses;
+    this.ties = ties;
 }
 
 method.getTeamId = function() {
-    return this._team_id;
+    return this.team_id;
+};
+method.getKey = function() {
+    return this.key;
 };
 method.getTeamName = function() {
-    return this._team;
+    return this.team;
 };
 method.getWins = function() {
-    return this._wins;
+    return this.wins;
 };
 method.getLosses = function() {
-    return this._losses;
+    return this.losses;
 };
-
 method.getTies = function() {
-    return this._ties;
+    return this.ties;
 };
 
 module.exports = Team;
