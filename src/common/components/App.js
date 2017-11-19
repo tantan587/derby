@@ -2,7 +2,7 @@ import { Route, Switch } from 'react-router-dom'
 import Menu from './ui/Menu'
 import Whoops404 from './ui/Whoops404'
 import { NavBar, HomePage, SignupPage, LoginPage, LogoutPage, Colors, Color, NewColor } from './containers/home-containers'
-import { LeaguePage } from './containers/leagues-containers'
+import { LeaguePage, JoinALeaguePage } from './containers/leagues-containers'
 import '../../stylesheets/APP.scss'
 
 const App = () =>
@@ -14,6 +14,7 @@ const App = () =>
             <Route path="/logout/" component={LogoutPage}/>
             <Route path="/signup/" component={SignupPage}/>
             <Route path="/standings/nba/" component={LeaguePage}/>
+            <Route path="/joinleague/" component={JoinALeaguePage}/>
             <Route exact path="/colormenu/:id" component={Color} />
             <Route path="/colormenu/"
                 component={({match, location}) => (
