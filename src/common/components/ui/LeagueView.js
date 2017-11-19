@@ -34,7 +34,7 @@ class LeagueView extends Component {
         this.handleToggle = this.handleToggle.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.state = {
-            height: '500px'
+            height: '10000px'
           };
     }
 
@@ -57,7 +57,8 @@ class LeagueView extends Component {
           fixedHeader={true}
           fixedFooter={true}
         >
-          <TableHeader>
+          <TableHeader displaySelectAll={false}
+          adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn colSpan="4" tooltip="Standings" style={{textAlign: 'center'}}>
                 Standings
@@ -73,6 +74,8 @@ class LeagueView extends Component {
           <TableBody
             stripedRows={true}
             displayRowCheckbox={false}
+            displaySelectAll={false}
+            adjustForCheckbox={false}
           >
             {this.props.teams.map((row, index) => (
               <TableRow key={index}>
