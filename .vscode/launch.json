@@ -7,6 +7,12 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/src/scripts/create_sport_leagues.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Attach To My Program",
             "program": "${workspaceFolder}/src\\server\\index.js",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node"

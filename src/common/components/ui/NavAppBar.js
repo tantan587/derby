@@ -82,7 +82,7 @@ export default class NavAppBar extends Component {
               onClick={this.handleStandingsClick}
               primaryText="Standings"/>
               <ListItem
-              containerElement={<Link to="/JoinLeague" />}
+              containerElement={<Link to="/joinleague" />}
               onClick={this.handleToggle}
               primaryText="Join A League"/>
           </List>
