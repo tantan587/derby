@@ -29,17 +29,17 @@ const style = {
   heroTitle: {
     fontSize: '50px'
   },
-  divideTwo: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexWrap: 'wrap'
-  },
-  compareItem: {
-    textAlign: 'center',
-    marginTop: '-1000px',
-    marginBottom: '50px'
-  },
+  // divideTwo: {
+  //   display: 'flex',
+  //   justifyContent: 'space-around',
+  //   alignItems: 'center',
+  //   flexWrap: 'wrap'
+  // },
+  // compareItem: {
+  //   textAlign: 'center',
+  //   marginTop: '-1000px',
+  //   marginBottom: '50px'
+  // },
 
 }
 //style={{width: 500, height: 200}}
@@ -56,22 +56,6 @@ const Home = ({user={}}) =>
         <h2>Earn Points.</h2>
         <h2>Win The Race.</h2>
       </div>
-      <div style={style.divideTwo}>
-          <div style={style.compareItem}>
-            <RaisedButton 
-              label="Sign Up" 
-              primary={true} 
-              //style={styles}
-              containerElement={<Link to="/signup" />}/>
-          </div>
-          <div style={style.compareItem}>
-            <RaisedButton 
-              label= {user.loggedIn ? "Log Out" : "Log In"} 
-              primary={true} 
-              //style={styles}
-              containerElement={<Link to={user.loggedIn ? "/logout" : "/login"} />}/>
-          </div>
-        </div>
     </div>
   </MuiThemeProvider>
     
