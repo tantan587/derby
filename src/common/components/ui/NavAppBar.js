@@ -92,12 +92,15 @@ export default class NavAppBar extends Component {
               onClick={this.handleToggle}
               primaryText="Derby Home"/>
             <ListItem
-              containerElement={<Link to="/about" />}
+              //containerElement={<Link to="/about" />}
               //onClick={this.handleToggle}
               primaryText="My Leagues"
               initiallyOpen={true}
+              open={true}
+              primaryTogglesNestedList={false}
               nestedItems={[
                 <ListItem
+                key={1}
                 containerElement={<Link to="/joinleague" />}
                 onClick={this.handleToggle}
                 primaryText="Join A League"
