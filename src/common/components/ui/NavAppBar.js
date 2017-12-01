@@ -16,16 +16,16 @@ const style = {
     cursor: 'pointer'
   },
   barbuttons: {
-    marginTop: '4px'
+    marginTop: '6px'
   }
 };
 
 const muiTheme = getMuiTheme({
   palette: {
-    primaryTextColor: 'white'
+    primaryTextColor: 'black'
   },
   appBar: {
-    height: 50,
+    height: 45,
   },
 });
 
@@ -126,9 +126,9 @@ export default class NavAppBar extends Component {
               onClick={this.handleStandingsClick}
               primaryText="Standings"/>
               <ListItem
-              containerElement={<Link to="/joinleague" />}
+              containerElement={<Link to="/createleague" />}
               onClick={this.handleToggle}
-              primaryText="Join A League"/>
+              primaryText="Create A League"/>
           </List>
         </Drawer>
        	</div>

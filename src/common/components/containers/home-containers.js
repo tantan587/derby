@@ -7,6 +7,7 @@ import Login from '../ui/Login'
 import Signup from '../ui/Signup'
 import Home from '../ui/Home'
 import Logout from '../ui/Logout'
+import CreateLeague from '../ui/CreateLeague'
 import AddColorForm from '../ui/AddColorForm'
 import { addColor, rateColor, removeColor,clickedLogin, clickedSignup, clickedLogout} from '../../actions/auth-actions'
 import { clickedStandings} from '../../actions/leagues-actions'
@@ -71,6 +72,17 @@ export const SignupPage = connect(
             }
         })
 )(Signup)
+
+export const CreateLeaguePage = connect(
+    state =>
+        ({
+            //pass in state here
+        }),
+    dispatch =>
+    ({
+        //pass in function here
+    })
+)(CreateLeague)
 
 export const NewColor = connect(
     null,
