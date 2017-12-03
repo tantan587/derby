@@ -3,19 +3,25 @@ import Menu from './ui/Menu'
 import Whoops404 from './ui/Whoops404'
 import { NavBar, HomePage, SignupPage, LoginPage, LogoutPage, Colors, Color, NewColor, CreateLeaguePage } from './containers/home-containers'
 import { LeaguePage, JoinALeaguePage } from './containers/leagues-containers'
-import '../../stylesheets/APP.scss'
+import { connect } from 'react-redux'
+import { userIsAuthenticatedRedir, userIsNotAuthenticatedRedir, userIsAdminRedir,
+         userIsAuthenticated, userIsNotAuthenticated } from '../auth'
 
-const App = () =>
+const Login = userIsNotAuthenticatedRedir(LoginPage)
+const CreateLeague = userIsAuthenticatedRedir(CreateLeaguePage)
+const Logout = userIsAuthenticatedRedir(LogoutPage)
+
+const App = () => 
         <div>
         <NavBar/>
         <Switch>
             <Route exact path="/" component={HomePage}/>
-            <Route path="/login/" component={LoginPage}/>
-            <Route path="/logout/" component={LogoutPage}/>
+            <Route path="/login/" component={Login}/>
+            <Route path="/logout/" component={Logout}/>
             <Route path="/signup/" component={SignupPage}/>
             <Route path="/standings/nba/" component={LeaguePage}/>
             <Route path="/joinleague/" component={JoinALeaguePage}/>
-            <Route path="/createleague/" component={CreateLeaguePage}/>
+            <Route path="/createleague/" component={CreateLeague}/>
             <Route exact path="/colormenu/:id" component={Color} />
             <Route path="/colormenu/"
                 component={({match, location}) => (

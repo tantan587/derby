@@ -8,6 +8,7 @@
     "prestart": "npm run build",
     "start": "babel-node src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --open --config webpack.dev.js --hot",
     "heroku-postbuild": "webpack --config ./webpack.config.js --progress"
   },
   "keywords": [],
@@ -48,6 +49,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-auth-wrapper": "^2.0.2",
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",

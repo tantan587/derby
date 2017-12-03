@@ -76,7 +76,7 @@ export const SignupPage = connect(
 export const CreateLeaguePage = connect(
     state =>
         ({
-            //pass in state here
+            user : state.user
         }),
     dispatch =>
     ({

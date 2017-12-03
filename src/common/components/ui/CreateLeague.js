@@ -58,7 +58,7 @@ class CreateLeague extends Component {
 					EPL:false,
 					numPlayers:8,
 					privateInd:true,
-					team_name
+					team_name:""
         }
 	}	
 
@@ -73,6 +73,7 @@ class CreateLeague extends Component {
 			e.preventDefault()
 			alert("Good")
 			//onLogin(this.state.leauge_name, this.state.leauge_password)
+
 	}
 
     pressSubmit(e) {
