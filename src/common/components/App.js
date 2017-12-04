@@ -21,7 +21,7 @@ const App = () =>
             <Route path="/signup/" component={SignupPage}/>
             <Route path="/standings/nba/" component={LeaguePage}/>
             <Route path="/joinleague/" component={JoinALeaguePage}/>
-            <Route path="/createleague/" component={CreateLeague}/>
+            <Route path="/createleague/" component={CreateLeaguePage}/>
             <Route exact path="/colormenu/:id" component={Color} />
             <Route path="/colormenu/"
                 component={({match, location}) => (

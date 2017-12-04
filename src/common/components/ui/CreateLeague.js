@@ -10,6 +10,7 @@ import Divider from 'material-ui/Divider'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {
   Table,
   TableBody,
@@ -25,11 +26,10 @@ loginText: {
     width: '100%',
     textAlign: 'center',
     color: 'black',
-    paddingTop: '30px'
-  },
-  loginTitle: {
-    fontSize: '50px'
-  },
+		marginTop:-150,
+		paddingTop:30
+	},
+
   sumbitButton: {
 	position: 'relative',
   	top: '50%',
@@ -96,33 +96,32 @@ class CreateLeague extends Component {
         return (
 		<div onKeyPress={(event) => this.keypress(event)}>
 			<MuiThemeProvider>
-			<div style={style.loginText}>
-				<h1 style={style.loginTitle}>Derby: Create A League</h1>
-			</div>
+			
 			<div style={{paddingTop:150}}>
+			<h1 style={style.loginText}>Derby: Create A League</h1>
+				<Card style={{paddingBottom:50}}>
+			<CardText >Time to create your own league! Our default league
+				contains NBA, NFL, MLB, NHL, College Football, and NCAA Basketball.
+				You draft one team per conference in the professional sports,
+				and 3 teams from 3 different conferences in each college sport.
+				Have questions? Learn more about it here.
+				</CardText>
+				</Card>
 				<Table>
 					<TableBody
 					displayRowCheckbox={false}
 					stripedRows={true}>
-					<TableRow style={{height:'150px'}}>
-							<TableRowColumn colSpan = "2" style={style.tableText}>Time to create your own league! Our default league
-								contains NBA, NFL, MLB, NHL, College Football, and NCAA Basketball.
-								You draft one team per conference in the professional sports,
-								and 3 teams from 3 different conferences in each college sport.
-								Have questions? Learn more about it here.
-								</TableRowColumn>
-						</TableRow>
 						<TableRow>
 							<TableRowColumn style={style.tableText}>League Name</TableRowColumn>
 							<TableRowColumn style={style.tableText}>
-							<TextField inputStyle={{textAlign: 'center'}}
+							<TextField inputStyle={{textAlign: 'center'}} id="1"
 							onChange = {(event,newValue) => this.setState({leauge_name:newValue})}/>
 							</TableRowColumn>
 						</TableRow>
 						<TableRow>
 							<TableRowColumn style={style.tableText}>League Password</TableRowColumn>
 							<TableRowColumn style={style.tableText}>
-							<TextField inputStyle={{textAlign: 'center'}}
+							<TextField inputStyle={{textAlign: 'center'}} id="2"
 								onChange = {(event,newValue) => this.setState({leauge_password:newValue})}/>
 							</TableRowColumn>
 						</TableRow>
@@ -180,7 +179,7 @@ class CreateLeague extends Component {
 						<TableRow>
 							<TableRowColumn style={style.tableText}>Your Team Name</TableRowColumn>
 							<TableRowColumn style={style.tableText}>
-							<TextField inputStyle={{textAlign: 'center'}}
+							<TextField inputStyle={{textAlign: 'center'}} id="3"
 								onChange = {(event,newValue) => this.setState({leauge_password:newValue})}/>
 							</TableRowColumn>
 						</TableRow>									
