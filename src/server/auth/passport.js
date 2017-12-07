@@ -4,13 +4,13 @@ const knex = require('../db/connection');
 module.exports = () => {
 
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.user_id);
   });
 
-  passport.deserializeUser((id, done) => {
-    knex('users').where({id}).first()
+  passport.deserializeUser((user_id, done) => {
+    knex.withSchema('users').table('users').where({user_id}).first()
     .then((user) => { done(null, user); })
-    .catch((err) => { done(err,null); });
+    .catch((err) => { done(err, null); });
   });
 
 };

@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import CardText from 'material-ui/Card';
 import '../../../stylesheets/Menu.scss'
 
 const style = {
@@ -78,12 +79,12 @@ class Signup extends Component {
 			    justifyContent:"center"
 			}
 		}
-		if(this.props.user.loggedIn)
-		{
-			return (
-				<Redirect to="/colormenu"/>
-			)
-		}
+		// if(this.props.user.loggedIn)
+		// {
+		// 	return (
+		// 		<Redirect to="/colormenu"/>
+		// 	)
+		// }
         return (
 			<div onKeyPress={(event) => this.keypress(event)}>
 				<div style={style.signupText}>
@@ -124,6 +125,7 @@ class Signup extends Component {
 				             onChange = {(event,newValue) => this.setState({password:newValue})}
 				             />
 				           <br/>
+									 <CardText>Already have an account? <Link to={'/login'}>Login</Link></CardText>
 		           		</div>
 		           		<div style={style.sumbitButton}>
 			 			<RaisedButton 

@@ -12,18 +12,17 @@ export const user = (state = {}, action={ type: null }) => {
                 last_name: action.last_name,
                 username: action.username,
                 loggedIn: true,
-                message: ""
+                error: {}
             }
         case C.SIGNUP_FAIL:
-        case C.LOGIN_FAIL_USERNAME:
-        case C.LOGIN_FAIL_PASSWORD:
+        case C.LOGIN_FAIL:
             return {
                 id: "",
                 first_name: "",
                 last_name: "",
                 username: "",
                 loggedIn: false,
-                message: action.message
+                error: action.error
             }
         case C.LOGOUT:
         return {
@@ -32,7 +31,8 @@ export const user = (state = {}, action={ type: null }) => {
                 last_name: "",
                 username: "",
                 loggedIn: false,
-                message: ""
+                //message: ""
+                error: {usernameLogin:"", passwordLogin:""}
             }
         default :
             return state    

@@ -12,6 +12,8 @@ import leagueapi from './league-api'
 import App from '../common/components/App'
 import storeFactory from '../common/store'
 import initialState from '../data/initialState.json'
+import passport from 'passport'
+import authRoutes from './routes/auth'
 
 const staticCSS = fs.readFileSync(path.join(__dirname, '../../assets/bundle.css'))
 const fileAssets = express.static(path.join(__dirname, '../../assets'))
@@ -91,7 +93,12 @@ export default express()
     .use(logger)
     .use(fileAssets)
     .use(addStoreToRequestPipeline)
-    .use('/api', derbyapi)
-    .use('/api', authapi)
-    .use('/api', leagueapi)
+    //.use('/api', derbyapi)
+    //.use('/api', authapi)
+    //.use('/api', leagueapi)
+    .use(require('cookie-parser')())
+    .use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
+    .use(passport.initialize())
+    .use(passport.session())
+    .use('/api', authRoutes)
     .use(respond)

@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import '../../../stylesheets/Menu.scss'
+import {CardText } from 'material-ui/Card';
 
 const style = {
 loginText: {
@@ -29,7 +29,7 @@ loginText: {
 	position: 'absolute',
   	top: '50%',
   	left: '50%',
-  	margin: '70px 0 0 -50px',
+  	margin: '0px 0 0 -50px',
 	}
 }
 
@@ -41,7 +41,7 @@ class Login extends Component {
 		this.keypress = this.keypress.bind(this)
         this.state={
         	username:'',
-        	password:''
+			password:''
         }
     }
 
@@ -67,12 +67,6 @@ class Login extends Component {
 			    justifyContent:"center"
 			}
 		}
-		if(this.props.user.loggedIn)
-		{
-			return (
-				<Redirect to="/colormenu"/>
-			)
-		}
         return (
 		<div onKeyPress={(event) => this.keypress(event)}>
 			<div style={style.loginText}>
@@ -84,6 +78,7 @@ class Login extends Component {
 			       		<TextField
 			         		hintText="Enter your Username"
 			         		floatingLabelText="Username"
+							errorText={this.props.user.error.usernameLogin || ""}
 			         		/*style={styles.tabLink}*/
 			         		onChange = {(event,newValue) => this.setState({username:newValue})}/>
 			           	<br/>
@@ -91,7 +86,9 @@ class Login extends Component {
 			           		type="password"
 			           		hintText="Enter your Password"
 			           		floatingLabelText="Password"
+							errorText={this.props.user.error.passwordLogin || ""}
 			           		onChange = {(event,newValue) => this.setState({password:newValue})}/>
+						<CardText>Don't have an account? <Link to={'/signup'}>Sign up</Link></CardText>
 		         	</div>
 		         	<div style={style.sumbitButton}>
 			 			<RaisedButton 
@@ -100,22 +97,13 @@ class Login extends Component {
 			             		/*style={style}*/
 		         		 	onClick={(event) => this.submit(event)}/>
          		 	</div>
-         		 	<div>
-         		 		{
-         		 			(this.props.user.message !=="") ?
-         		 			<p>{this.props.user.message}</p> :
-         		 			<p></p>
-         		 		}
-         		 	</div>
+					  
 	         	</div>
 	     	</MuiThemeProvider>
 	  	</div>
 	  )
     }
 }
-    /*<nav className="menu">
-        <Link to="/colormenu">Login</Link>
-    </nav>*/
 
 
 export default Login

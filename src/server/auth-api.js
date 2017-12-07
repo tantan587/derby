@@ -92,7 +92,7 @@ router.post("/login", (req, res) =>
             {
                 dispatchAndRespond(req, res, {
                 type: C.LOGIN_FAIL_USERNAME,
-                message: "Can not find your username"
+                error: {usernameLogin:"Can not find your username", passwordLogin:"" }
                 })
             }
             else
@@ -117,7 +117,7 @@ router.post("/login", (req, res) =>
                 {
                    dispatchAndRespond(req, res, {
                     type: C.LOGIN_FAIL_PASSWORD,
-                    message: "Username / Password does not match"
+                    error: {usernameLogin:"", passwordLogin: "Username / Password does not match"}
                     }) 
                 }
                 

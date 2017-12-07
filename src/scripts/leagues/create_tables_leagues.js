@@ -50,6 +50,8 @@ function createLeagueUsers() {
     knex.schema.withSchema('leagues').createTable('users', function (table) {
     table.string('league_id')
     table.string('user_id')
+    table.string('team_id')
+    table.string('team_name')
     table.decimal('total_points',8,2);
     table.bool('commissioner');
     table.primary(['league_id', 'user_id'])
