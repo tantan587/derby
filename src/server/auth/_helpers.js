@@ -53,6 +53,11 @@ function loginRedirect(req, res, next) {
   return next();
 }
 
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
 function handleErrors(req) {
   return new Promise((resolve, reject) => {
     if (req.body.username.length < 6) {
@@ -66,8 +71,52 @@ function handleErrors(req) {
         type: C.SIGNUP_FAIL,
         error: new AuthError("signup", "password",'Password must be longer than 6 characters')
       });
-    } else {
-      resolve();
+    }
+    else if (validateEmail(req.body.email)=== false) {
+      reject({
+        type: C.SIGNUP_FAIL,
+        error: new AuthError("signup", "email",'Not proper email format')
+      });
+    }
+     else {
+      var str = "select (select count(*) from users.users where username = '" + req.body.username + "') username, " +
+      "(select count(*) from users.users where email = '" + req.body.email +"') email"
+      console.log(str)
+      knex.raw(str)
+      .then(result =>
+        {
+          if (result.rows.length !== 1)
+          {
+            throw err
+          }
+          else if (result.rows[0].username == 1 &&  result.rows[0].email == 1)
+            {
+              var auth  = new AuthError("signup", "username",'Username already exists. Please choose a different one');
+              auth.signup.password = 'Email has already be registers. Please choose a different one'
+              reject({
+              type: C.SIGNUP_FAIL,
+              error: auth
+            });
+            }
+            else if (result.rows[0].username == 1) 
+            {
+              reject({
+              type: C.SIGNUP_FAIL,
+              error: new AuthError("signup", "username",'Username already exists. Please choose a different one')
+            });
+            }
+            else if (result.rows[0].email == 1) 
+            {
+              reject({
+              type: C.SIGNUP_FAIL,
+              error: new AuthError("signup", "email",'Email has already be registers. Please choose a different one')
+            });
+            }
+            else
+            {
+              resolve();
+            }
+        })
     }
   });
 }

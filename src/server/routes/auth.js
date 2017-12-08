@@ -4,35 +4,53 @@ const router = express.Router();
 const authHelpers = require('../auth/_helpers');
 const passport = require('../auth/local');
 import C from '../../common/constants'
+import AuthError from "../../common/models/AuthError"
 
 router.post('/signup', authHelpers.loginRedirect, (req, res, next)  => {
   return authHelpers.createUser(req, res)
   .then((response) => {
-    passport.authenticate('local', (err, user, info) => {
-      if (err || !user) { 
-        handleResponse(res, 500, err); }
-      if (user) { 
-        handleReduxResponse(res, 200, {
-          type: C.SIGNUP_SUCCESS,
-          id: user.user_id,
-          last_name : user.last_name,
-          first_name : user.first_name,
-          username : user.username
-          }); 
+    //need to check to make sure there is a reponse, else there was an error
+    if (response)
+    {
+      passport.authenticate('local', (err, user, info) => {
+        if (err || !user) { 
+          handleResponse(res, 500, err); }
+        if (user) { 
+          req.login(user, function (err) {
+            if (err) { handleResponse(res, 500, 'error'); }
+            handleReduxResponse(res, 200, {
+              type: C.SIGNUP_SUCCESS,
+              id: user.user_id,
+              last_name : user.last_name,
+              first_name : user.first_name,
+              username : user.username
+              }); 
+          });
         }
-    })(req, res, next);
+      })(req, res, next);
+    }
   })
-  .catch((err) => { handleResponse(res, 500, 'error'); });
+  .catch((err) => { 
+    handleResponse(res, 500, 'error'); });
 });
 
 router.post('/login', authHelpers.loginRedirect, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) { handleResponse(res, 500, 'error'); }
-    if (!user) { handleResponse(res, 404, 'User not found'); }
+    if (!user) { handleReduxResponse(res, 404, {
+      type: C.SIGNUP_FAIL,
+      error: new AuthError("login", "password",'Username / Password does not match')
+    }); }
     if (user) {
       req.login(user, function (err) {
         if (err) { handleResponse(res, 500, 'error'); }
-        handleResponse(res, 200, 'success');
+        handleReduxResponse(res, 200, {
+          type: C.LOGIN_SUCCESS,
+          id: user.user_id,
+          last_name : user.last_name,
+          first_name : user.first_name,
+          username : user.username
+      });
       });
     }
   })(req, res, next);
@@ -40,7 +58,8 @@ router.post('/login', authHelpers.loginRedirect, (req, res, next) => {
 
 router.post('/logout', authHelpers.loginRequired, (req, res, next) => {
   req.logout();
-  handleResponse(res, 200, 'success');
+  handleReduxResponse(res, 200, {
+    type: C.LOGOUT  });
 });
 
 // *** helpers *** //
