@@ -17,3 +17,11 @@ export const clickedStandings = () => dispatch =>
         'GET'
     )
 
+export const clickedCreateLeague = (leagueInfo) => dispatch =>
+    fetchThenDispatch(
+        dispatch,
+        '/api/createleague',
+        'POST',
+        JSON.stringify({leagueInfo})
+    )
+

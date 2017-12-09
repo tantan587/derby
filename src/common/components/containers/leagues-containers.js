@@ -2,8 +2,10 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import LeagueView from '../ui/LeagueView'
 import JoinALeague from '../ui/JoinALeague'
+import CreateLeague from '../ui/CreateLeague'
 import { findById } from '../../lib/array-helpers'
 import { sortColors } from '../../lib/array-helpers'
+import { clickedCreateLeague} from '../../actions/leagues-actions'
 
 export const LeaguePage = connect(
     state =>
@@ -14,6 +16,19 @@ export const LeaguePage = connect(
     ({
     })
 )(LeagueView)
+
+export const CreateLeaguePage = connect(
+    state =>
+        ({
+            user : state.user
+        }),
+        dispatch =>
+        ({
+            onCreateLeague(leagueInfo) {
+                dispatch(clickedCreateLeague(leagueInfo))
+            }
+        })
+)(CreateLeague)
 
 export const JoinALeaguePage = connect(
     state =>

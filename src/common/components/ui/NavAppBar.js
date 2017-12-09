@@ -2,17 +2,33 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NavLink as Link, Redirect, IndexLink } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {cyan500} from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import '../../../stylesheets/Menu.scss'
 
 const style = {
   title: {
     cursor: 'pointer'
+  },
+  barbuttons: {
+    marginTop: '6px'
   }
 };
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primaryTextColor: 'black'
+  },
+  appBar: {
+    height: 45,
+  },
+});
+
 
 export default class NavAppBar extends Component {
   constructor(props) {
@@ -44,12 +60,26 @@ export default class NavAppBar extends Component {
   render() {
     return (
     <div>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={muiTheme}>
           <div>
           	<AppBar
               onLeftIconButtonTouchTap={this.handleToggle}
              	title={<span style={style.title}>Derby</span>}
-              onTitleTouchTap={this.handleTitleTouchTap}/>
+              onTitleTouchTap={this.handleTitleTouchTap}
+              iconElementRight={
+              <div style={style.barbuttons}>
+                <FlatButton 
+                primary={true} 
+                label="Sign Up"
+                style={{color:'white'}}
+                containerElement={<Link to="/signup" />}/>
+                <FlatButton
+                 primary={true} 
+                 label={this.props.user.loggedIn ? "Log Out" : "Log In"} 
+                 style={{color:'white'}}
+                containerElement={<Link to={this.props.user.loggedIn ? "/logout" : "/login"} />}/>
+              </div>
+            }/>
 
           <Drawer
           docked={false}
@@ -61,6 +91,20 @@ export default class NavAppBar extends Component {
               containerElement={<Link to="/" />}
               onClick={this.handleToggle}
               primaryText="Derby Home"/>
+            <ListItem
+              //containerElement={<Link to="/about" />}
+              //onClick={this.handleToggle}
+              primaryText="My Leagues"
+              initiallyOpen={true}
+              open={true}
+              primaryTogglesNestedList={false}
+              nestedItems={[
+                <ListItem
+                key={1}
+                containerElement={<Link to="/joinleague" />}
+                onClick={this.handleToggle}
+                primaryText="Join A League"
+              />]}/>  
             <ListItem
               containerElement={<Link to="/about" />}
               onClick={this.handleToggle}
@@ -82,9 +126,9 @@ export default class NavAppBar extends Component {
               onClick={this.handleStandingsClick}
               primaryText="Standings"/>
               <ListItem
-              containerElement={<Link to="/JoinLeague" />}
+              containerElement={<Link to="/createleague" />}
               onClick={this.handleToggle}
-              primaryText="Join A League"/>
+              primaryText="Create A League"/>
           </List>
         </Drawer>
        	</div>

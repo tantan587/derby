@@ -14,7 +14,10 @@ import { findById } from '../../lib/array-helpers'
 import { sortColors } from '../../lib/array-helpers'
 
 export const NavBar = connect(
-    null,
+    state =>
+    ({
+        user : state.user
+    }),
     dispatch =>
         ({
             onClickedStandings() {
