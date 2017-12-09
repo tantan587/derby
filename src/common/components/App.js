@@ -1,8 +1,8 @@
 import { Route, Switch } from 'react-router-dom'
 import Menu from './ui/Menu'
 import Whoops404 from './ui/Whoops404'
-import { NavBar, HomePage, SignupPage, LoginPage, LogoutPage, Colors, Color, NewColor, CreateLeaguePage } from './containers/home-containers'
-import { LeaguePage, JoinALeaguePage } from './containers/leagues-containers'
+import { NavBar, HomePage, SignupPage, LoginPage, LogoutPage, Colors, Color, NewColor } from './containers/home-containers'
+import { LeaguePage, JoinALeaguePage, CreateLeaguePage } from './containers/leagues-containers'
 import { connect } from 'react-redux'
 import { userIsAuthenticatedRedir, userIsNotAuthenticatedRedir, userIsAdminRedir,
          userIsAuthenticated, userIsNotAuthenticated } from '../auth'

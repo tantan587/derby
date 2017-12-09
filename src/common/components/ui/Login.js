@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {CardText } from 'material-ui/Card';
+import {Card, CardText } from 'material-ui/Card';
 
 const style = {
 loginText: {
@@ -13,10 +13,8 @@ loginText: {
     width: '100%',
     textAlign: 'center',
     color: 'black',
-    paddingTop: '30px'
-  },
-  loginTitle: {
-    fontSize: '50px'
+	paddingTop: '30px',
+	fontSize: '50px'
   },
   loginBoard: {
 	position: 'absolute',
@@ -25,9 +23,8 @@ loginText: {
   	margin: '-300px 0 0 -120px',
 	},
 
-  sumbitButton: {
+  submitButton: {
 	position: 'absolute',
-  	top: '50%',
   	left: '50%',
   	margin: '0px 0 0 -50px',
 	}
@@ -60,47 +57,37 @@ class Login extends Component {
     }
 
     render() {
-    	var styles = {
-		    tabLink : {
-			    display:"flex",
-			    alignItems:"center",
-			    justifyContent:"center"
-			}
-		}
         return (
 		<div onKeyPress={(event) => this.keypress(event)}>
-			<div style={style.loginText}>
-			        <h1 style={style.loginTitle}>Log In</h1>
-	        </div>
-	        <MuiThemeProvider>
-	          	<div>
-		          	<div style={style.loginBoard}>
+			<MuiThemeProvider>
+				<div>
+					<Card>
+						<h1 style={style.loginText}>Log In</h1>
+						<div style={style.loginBoard}>
 			       		<TextField
 			         		hintText="Enter your Username"
 			         		floatingLabelText="Username"
-							errorText={this.props.user.error.usernameLogin || ""}
-			         		/*style={styles.tabLink}*/
+							errorText={this.props.user.error.login.username || ""}
 			         		onChange = {(event,newValue) => this.setState({username:newValue})}/>
 			           	<br/>
 			         	<TextField
 			           		type="password"
 			           		hintText="Enter your Password"
 			           		floatingLabelText="Password"
-							errorText={this.props.user.error.passwordLogin || ""}
+							errorText={this.props.user.error.login.password || ""}
 			           		onChange = {(event,newValue) => this.setState({password:newValue})}/>
 						<CardText>Don't have an account? <Link to={'/signup'}>Sign up</Link></CardText>
-		         	</div>
-		         	<div style={style.sumbitButton}>
-			 			<RaisedButton 
-			     			label="Submit" 
+						<br/>
+						 <RaisedButton 
+			     			label="Submit"
+							style={style.submitButton} 
 			     			primary={true} 
-			             		/*style={style}*/
 		         		 	onClick={(event) => this.submit(event)}/>
-         		 	</div>
-					  
-	         	</div>
-	     	</MuiThemeProvider>
-	  	</div>
+						</div>
+					</Card>
+				</div>
+			</MuiThemeProvider>
+		</div>
 	  )
     }
 }

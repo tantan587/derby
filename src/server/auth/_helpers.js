@@ -60,28 +60,26 @@ function validateEmail(email) {
 
 function handleErrors(req) {
   return new Promise((resolve, reject) => {
+    let foundError = false;
+    let authError = new AuthError();
     if (req.body.username.length < 6) {
-      reject({
-        type: C.SIGNUP_FAIL,
-        error: new AuthError("signup", "username","Username must be loner than six characters")
-      });
+      authError.addError('signup','username','Username must be longer than six characters')
     }
-    else if (req.body.password.length < 6) {
-      reject({
-        type: C.SIGNUP_FAIL,
-        error: new AuthError("signup", "password",'Password must be longer than 6 characters')
-      });
+    if (req.body.password.length < 6) {
+      authError.addError('signup','password','Password must be longer than six characters')
     }
-    else if (validateEmail(req.body.email)=== false) {
+    if (validateEmail(req.body.email)=== false) {
+      authError.addError('signup','email','Not proper email format')
+    }
+     if (authError.foundError) {
       reject({
         type: C.SIGNUP_FAIL,
-        error: new AuthError("signup", "email",'Not proper email format')
+        error: authError
       });
     }
      else {
       var str = "select (select count(*) from users.users where username = '" + req.body.username + "') username, " +
       "(select count(*) from users.users where email = '" + req.body.email +"') email"
-      console.log(str)
       knex.raw(str)
       .then(result =>
         {
@@ -89,33 +87,23 @@ function handleErrors(req) {
           {
             throw err
           }
-          else if (result.rows[0].username == 1 &&  result.rows[0].email == 1)
-            {
-              var auth  = new AuthError("signup", "username",'Username already exists. Please choose a different one');
-              auth.signup.password = 'Email has already be registers. Please choose a different one'
-              reject({
+          if (result.rows[0].username == 1) 
+          {
+            authError.addError('signup','username','Username already exists. Please choose a different one')
+          }
+          if (result.rows[0].email == 1) 
+          {
+            authError.addError('signup','email','Email has already be registered. Please choose a different one')
+          }
+          if (authError.foundError) {
+            reject({
               type: C.SIGNUP_FAIL,
-              error: auth
-            });
-            }
-            else if (result.rows[0].username == 1) 
-            {
-              reject({
-              type: C.SIGNUP_FAIL,
-              error: new AuthError("signup", "username",'Username already exists. Please choose a different one')
-            });
-            }
-            else if (result.rows[0].email == 1) 
-            {
-              reject({
-              type: C.SIGNUP_FAIL,
-              error: new AuthError("signup", "email",'Email has already be registers. Please choose a different one')
-            });
-            }
-            else
-            {
-              resolve();
-            }
+              error: authError});
+          }
+          else
+          {
+            resolve();
+          }
         })
     }
   });

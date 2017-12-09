@@ -37,9 +37,12 @@ router.post('/signup', authHelpers.loginRedirect, (req, res, next)  => {
 router.post('/login', authHelpers.loginRedirect, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) { handleResponse(res, 500, 'error'); }
-    if (!user) { handleReduxResponse(res, 404, {
+    if (!user) { 
+      var authError = new AuthError();
+      authError.addError('login','password','Username / Password does not match')
+      handleReduxResponse(res, 404, {
       type: C.SIGNUP_FAIL,
-      error: new AuthError("login", "password",'Username / Password does not match')
+      error: authError
     }); }
     if (user) {
       req.login(user, function (err) {

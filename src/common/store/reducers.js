@@ -1,4 +1,5 @@
 import C from '../constants'
+import AuthError from '../models/AuthError'
 
 
 export const user = (state = {}, action={ type: null }) => {
@@ -12,7 +13,7 @@ export const user = (state = {}, action={ type: null }) => {
                 last_name: action.last_name,
                 username: action.username,
                 loggedIn: true,
-                error: {}
+                error: new AuthError()
             }
         case C.SIGNUP_FAIL:
         case C.LOGIN_FAIL:
@@ -32,7 +33,7 @@ export const user = (state = {}, action={ type: null }) => {
                 username: "",
                 loggedIn: false,
                 //message: ""
-                error: {usernameLogin:"", passwordLogin:""}
+                error: new AuthError()
             }
         default :
             return state    
