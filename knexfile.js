@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URL,//`postgres://koperman:derbyapp123@localhost:5432/derby`,
+    connection: 'postgres://koperman:derbyapp123@localhost:5432/derby',
     migrations: {
       directory: __dirname + '/src/server/db/migrations/dev'
     },

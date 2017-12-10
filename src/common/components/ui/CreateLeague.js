@@ -59,9 +59,9 @@ class CreateLeague extends Component {
 					league_name:'',
 					league_password:'',
 					EPL:false,
-					numPlayers:8,
+					max_owners:8,
 					privateInd:true,
-					team_name:""
+					owner_name:""
         }
 	}	
 
@@ -128,7 +128,7 @@ class CreateLeague extends Component {
 						<TableRow>
 							<TableRowColumn style={style.tableText}>Number of Teams</TableRowColumn>
 							<TableRowColumn style={style.tableText}>
-							<DropDownMenu value={this.state.numPlayers} onChange={(event, index, value) => this.setState({numPlayers:value})}>
+							<DropDownMenu value={this.state.max_owners} onChange={(event, index, value) => this.setState({max_owners:value})}>
 							<MenuItem value={8} primaryText="8 Teams" />
 							<MenuItem value={9} primaryText="9 Teams" />
 							<MenuItem value={10} primaryText="10 Teams" />
@@ -171,10 +171,10 @@ class CreateLeague extends Component {
 							</TableRowColumn>
 						</TableRow>
 						<TableRow>
-							<TableRowColumn style={style.tableText}>Your Team Name</TableRowColumn>
+							<TableRowColumn style={style.tableText}>Your Owner Name</TableRowColumn>
 						<TableRowColumn style={style.tableText}>
 							<TextField inputStyle={{textAlign: 'center'}} id="3"
-								onChange = {(event,newValue) => this.setState({leauge_password:newValue})}/>
+								onChange = {(event,newValue) => this.setState({owner_name:newValue})}/>
 							</TableRowColumn>
 						</TableRow>									
 					</TableBody>

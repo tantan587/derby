@@ -14,6 +14,7 @@ import storeFactory from '../common/store'
 import initialState from '../data/initialState.json'
 import passport from 'passport'
 import authRoutes from './routes/auth'
+import fantasyRoutes from './routes/fantasy'
 
 const staticCSS = fs.readFileSync(path.join(__dirname, '../../assets/bundle.css'))
 const fileAssets = express.static(path.join(__dirname, '../../assets'))
@@ -101,4 +102,5 @@ export default express()
     .use(passport.initialize())
     .use(passport.session())
     .use('/api', authRoutes)
+    .use('/api', fantasyRoutes)
     .use(respond)
