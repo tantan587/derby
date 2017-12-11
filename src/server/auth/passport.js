@@ -8,7 +8,7 @@ module.exports = () => {
   });
 
   passport.deserializeUser((user_id, done) => {
-    knex.withSchema('users').table('users').where({user_id}).first()
+    return knex.withSchema('users').table('users').where({user_id}).first()
     .then((user) => { done(null, user); })
     .catch((err) => { done(err, null); });
   });

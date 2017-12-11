@@ -129,6 +129,10 @@ export default class NavAppBar extends Component {
               containerElement={<Link to="/createleague" />}
               onClick={this.handleToggle}
               primaryText="Create A League"/>
+              <ListItem
+              containerElement={<Link to="/joinleague" />}
+              onClick={this.handleToggle}
+              primaryText="Join A League"/>
           </List>
         </Drawer>
        	</div>

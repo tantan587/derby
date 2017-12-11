@@ -35,9 +35,25 @@ export const user = (state = {}, action={ type: null }) => {
                 //message: ""
                 error: new AuthError()
             }
+        case C.CREATE_LEAGUE_FAIL:
+        case C.JOIN_LEAGUE_FAIL:
+        return {
+            ...state,
+            error : action.error
+        }
         default :
             return state    
     }
+}
+
+export const leagues = (state = [], action={ type: null }) => {
+    switch (action.type){
+        case C.CREATE_LEAGUE_SUCCESS:
+        case C.JOIN_LEAGUE_SUCCESS:
+            return state
+
+    }
+    
 }
 
 export const teams = (state = [], action={ type: null }) => {
