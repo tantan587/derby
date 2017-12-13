@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import LeagueView from '../ui/LeagueView'
 import JoinALeague from '../ui/JoinALeague'
 import JoinLeague from '../ui/JoinLeague'
+import League from '../ui/League'
 import CreateLeague from '../ui/CreateLeague'
 import { findById } from '../../lib/array-helpers'
 import { sortColors } from '../../lib/array-helpers'
@@ -21,7 +22,8 @@ export const LeaguePage = connect(
 export const CreateLeaguePage = connect(
     state =>
         ({
-            user : state.user
+            user : state.user,
+            leagueIdToView : state.leagueIdToView
         }),
         dispatch =>
         ({
@@ -34,7 +36,8 @@ export const CreateLeaguePage = connect(
 export const JoinLeaguePage = connect(
     state =>
         ({
-            user : state.user
+            user : state.user,
+            leagueIdToView : state.leagueIdToView
         }),
         dispatch =>
         ({
@@ -54,5 +57,16 @@ export const JoinALeaguePage = connect(
         //pass in function here
     })
 )(JoinALeague)
+
+export const MainLeaguePage = connect(
+    state =>
+        ({
+            leagues : state.leagues
+        }),
+    dispatch =>
+    ({
+        //pass in function here
+    })
+)(League)
 
 

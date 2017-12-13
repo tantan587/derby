@@ -57,7 +57,12 @@ class JoinLeague extends Component {
     	}
     }
 
-    render() {
+	render() 
+	{
+		if(this.props.leagueIdToView != ''){
+			return (<Redirect to={'/mainleague'}></Redirect>)
+		}
+		else{
         return (
 		<div onKeyPress={(event) => this.keypress(event)}>
 			<MuiThemeProvider>
@@ -94,7 +99,8 @@ class JoinLeague extends Component {
 			</MuiThemeProvider>
 		</div>
 	  )
-    }
+	}
+	}
 }
 
 

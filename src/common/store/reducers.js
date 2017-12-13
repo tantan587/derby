@@ -46,11 +46,30 @@ export const user = (state = {}, action={ type: null }) => {
     }
 }
 
+export const leagueIdToView = (state = "", action={ type: null }) => {
+    switch (action.type){
+        case C.CREATE_LEAGUE_SUCCESS:
+        case C.JOIN_LEAGUE_SUCCESS:
+            return action.league_id
+        default :
+            return state;
+    }
+}
+
+leagueIdToView
+
 export const leagues = (state = [], action={ type: null }) => {
     switch (action.type){
         case C.CREATE_LEAGUE_SUCCESS:
         case C.JOIN_LEAGUE_SUCCESS:
-            return state
+            return {
+                league_name : action.league_name,
+                total_players : action.owners.length,
+                max_owners : action.max_owners,
+                owners : action.owners
+            }
+        default:
+                return state
 
     }
     

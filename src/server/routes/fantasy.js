@@ -10,27 +10,20 @@ import { v4 } from 'uuid'
 router.post('/createleague', authHelpers.loginRequired, (req, res, next)  => {
   return createLeague(req, res)
   .then((response) => { 
-      return getLeague(req.user.user_id, response.league_name)
-  })
-  .catch((err) => { 
-    handleResponse(res, 500, 'error'); });
-});
-
-router.post('/joinleague1', authHelpers.loginRequired, (req, res, next)  => {
-  return joinLeague(req, res)
-  .then((response) => { 
-    return getLeague(req.user.user_id, response.league_name)
+      return getLeague(response.league_id, res)
   })
   .catch((err) => { 
     handleResponse(res, 500, 'error'); });
 });
 
 router.post('/joinleague', authHelpers.loginRequired, (req, res, next)  => {
-  return handleJoinErrors(req)
+  return joinLeague(req, res)
+  .then((response) => { 
+    return getLeague(response.league_id,res)
+  })
   .catch((err) => { 
     handleResponse(res, 500, 'error'); });
 });
-
 
 function handleReduxResponse(res, code, action){
   res.status(code).json(action);
@@ -179,7 +172,8 @@ function handleJoinErrors(req) {
       "'), (select count(*) joined from fantasy.leagues a, fantasy.owners b where a.league_id = b.league_id and a.league_name = '" + req.body.league_name +
       "' and b.user_id = '" + req.user.user_id +
       "'), (select count(*) nametaken from fantasy.leagues a, fantasy.owners b where a.league_id = b.league_id and a.league_name = '" + req.body.league_name +
-      "' and b.owner_name = '" +req.body.owner_name + "')"
+      "' and b.owner_name = '" +req.body.owner_name +
+      "'), (select league_id from fantasy.leagues where league_name = '" + req.body.league_name + "')" 
       knex.raw(str)
       .then(result =>
         {
@@ -210,37 +204,39 @@ function handleJoinErrors(req) {
           }
           else
           {
-            resolve();
+            resolve(result.rows[0].league_id);
           }
         })
     }
   });
 }
 
-const getLeague = (user_id, league_name, res) =>{
-    var str = "select count(*) from fantasy.leagues a, fantasy.users b where a.league_name = '" + league_name +
-    "' and a.league_id = b.league_id and user_id = '" + user_id + "'"; 
+const getLeague = (league_id, res) =>{
 
-    var str = "select aa.*, bb.username, bb.user_id from fantasy.owners aa, users.users bb where aa.league_id in (" +
-    "select distinct(a.league_id) from fantasy.leagues a, fantasy.owners b where a.league_name = '" + league_name +
-    "' and b.user_id = '" + user_id +
-    "') and bb.user_id = '" + user_id + "'"
+
+    var str = "select a.*, b.username, c.league_name, c.max_owners, c.league_id from fantasy.owners a, users.users b, fantasy.leagues c where a.league_id = '" + league_id +
+    "' and a.user_id = b.user_id and a.league_id = c.league_id"
     knex.raw(str)
     .then(result =>
       {
-        if (result.rows.count > 0) 
+        if (result.rows.length > 0) 
         {
+          var league_name = result.rows[0].league_name;
+          var max_owners = result.rows[0].max_owners;
+          var league_id = result.rows[0].league_id;
           var owners = []
           result.rows.map(owner => owners.push(
             {
               owner_name:owner.owner_name, 
               total_points:0,
               username:owner.username,
-              user_id: onwer.user_id
+              user_id: owner.user_id
             }))
-          return handleReduxResponse(res,400, {
+          return handleReduxResponse(res,200, {
             type: C.CREATE_LEAGUE_SUCCESS,
             league_name : league_name,
+            max_owners : max_owners,
+            league_id : league_id,
             owners : owners
           })
         }
