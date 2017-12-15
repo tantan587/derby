@@ -59,7 +59,7 @@ class JoinLeague extends Component {
 
 	render() 
 	{
-		if(this.props.leagueIdToView != ''){
+		if(this.props.activeLeague.success === true){
 			return (<Redirect to={'/mainleague'}></Redirect>)
 		}
 		else{

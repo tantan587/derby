@@ -111,10 +111,31 @@ function handleErrors(req) {
   });
 }
 
+const getUserLeagues = (user, cb) =>{
+  
+  
+      var str = "select b.league_name, b.league_id from fantasy.owners a, fantasy.leagues b where a.user_id = '" + user.user_id +
+      "' and b.league_id = a.league_id"
+      //knex.raw(str)
+      return  knex.withSchema('fantasy').table('leagues').where('user_id',user.user_id).innerJoin('owners', 'leagues.league_id', 'owners.league_id')
+      .then(result =>
+        {
+            let leagues = []
+            result.map(league => leagues.push(
+              {
+                league_id:league.league_id, 
+                league_name:league.league_name
+              }))
+            cb(user, leagues)
+          }
+        )
+    }
+
 module.exports = {
   comparePass,
   createUser,
   loginRequired,
   //adminRequired,
-  loginRedirect
+  loginRedirect,
+  getUserLeagues
 };

@@ -23,7 +23,7 @@ export const CreateLeaguePage = connect(
     state =>
         ({
             user : state.user,
-            leagueIdToView : state.leagueIdToView
+            activeLeague : state.activeLeague
         }),
         dispatch =>
         ({
@@ -37,7 +37,7 @@ export const JoinLeaguePage = connect(
     state =>
         ({
             user : state.user,
-            leagueIdToView : state.leagueIdToView
+            activeLeague : state.activeLeague
         }),
         dispatch =>
         ({

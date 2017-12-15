@@ -4,6 +4,7 @@ const authHelpers = require('../auth/_helpers');
 const passport = require('../auth/local');
 import C from '../../common/constants'
 import AuthError from "../../common/models/AuthError"
+import ErrorText from "../../common/models/ErrorText"
 
 router.post('/signup', authHelpers.loginRedirect, (req, res, next)  => {
   return authHelpers.createUser(req, res)
@@ -46,13 +47,18 @@ router.post('/login', authHelpers.loginRedirect, (req, res, next) => {
     if (user) {
       req.login(user, function (err) {
         if (err) { handleResponse(res, 500, 'error'); }
-        handleReduxResponse(res, 200, {
-          type: C.LOGIN_SUCCESS,
-          id: user.user_id,
-          last_name : user.last_name,
-          first_name : user.first_name,
-          username : user.username
-      });
+        else{
+          authHelpers.getUserLeagues(user, (user1,leagues) =>
+          handleReduxResponse(res, 200, {
+            type: C.LOGIN_SUCCESS,
+            id: user1.user_id,
+            last_name : user1.last_name,
+            first_name : user1.first_name,
+            username : user1.username,
+            leagues : leagues
+        })
+      )
+        }
       });
     }
   })(req, res, next);

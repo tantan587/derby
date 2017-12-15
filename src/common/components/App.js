@@ -8,6 +8,7 @@ import { userIsAuthenticatedRedir, userIsNotAuthenticatedRedir, userIsAdminRedir
          userIsAuthenticated, userIsNotAuthenticated } from '../auth'
 
 const Login = userIsNotAuthenticatedRedir(LoginPage)
+const Signup = userIsNotAuthenticatedRedir(SignupPage)
 const CreateLeague = userIsAuthenticatedRedir(CreateLeaguePage)
 const JoinLeague = userIsAuthenticatedRedir(JoinLeaguePage)
 const Logout = userIsAuthenticatedRedir(LogoutPage)
@@ -19,7 +20,7 @@ const App = () =>
             <Route exact path="/" component={HomePage}/>
             <Route path="/login/" component={Login}/>
             <Route path="/logout/" component={Logout}/>
-            <Route path="/signup/" component={SignupPage}/>
+            <Route path="/signup/" component={Signup}/>
             <Route path="/standings/nba/" component={LeaguePage}/>
             <Route path="/joinleague/" component={JoinLeague}/>
             <Route path="/createleague/" component={CreateLeaguePage}/>

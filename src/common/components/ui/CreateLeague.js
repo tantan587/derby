@@ -88,7 +88,11 @@ class CreateLeague extends Component {
     	}
 	}
     render() {
-		return (
+			if(this.props.activeLeague.success === true){
+				return (<Redirect to={'/mainleague'}></Redirect>)
+			}
+			else{
+					return (
 			<div onKeyPress={(event) => this.keypress(event)}>
 				<MuiThemeProvider>
 					<div>
@@ -193,6 +197,7 @@ class CreateLeague extends Component {
 </div>
 			)
     }
+}
 }
     /*<nav className="menu">
         <Link to="/colormenu">Login</Link>

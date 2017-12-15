@@ -115,15 +115,15 @@ function handleCreateErrors(req) {
   return new Promise((resolve, reject) => {
     let errorText = new ErrorText();
     if (req.body.leagueInfo.league_name.length < 5) {
-      //authError.addError('signup','username','Username must be longer than six characters')
+      errorText.addError('username','Username must be longer than five characters')
     }
     if (req.body.leagueInfo.league_password.length < 5) {
-      //authError.addError('signup','password','Password must be longer than six characters')
+      errorText.addError('password','Password must be longer than five characters')
     }
      if (errorText.foundError) {
       reject({
         type: C.CREATE_LEAGUE_FAIL,
-        error: new ErrorText()
+        error: errorText
       });
     }
      else {
@@ -138,9 +138,9 @@ function handleCreateErrors(req) {
           if (result.rows[0].league_name == 1) 
           {
             let a = 1;
-            //authError.addError('signup','username','Username already exists. Please choose a different one')
+            errorText.addError('username','Username already exists. Please choose a different one')
           }
-          if (authError.foundError) {
+          if (errorText.foundError) {
             reject({
               type: C.SIGNUP_FAIL,
               error: new ErrorText()});

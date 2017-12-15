@@ -46,33 +46,62 @@ export const user = (state = {}, action={ type: null }) => {
     }
 }
 
-export const leagueIdToView = (state = "", action={ type: null }) => {
+export const leagues = (state = [], action={ type: null }) => {
     switch (action.type){
         case C.CREATE_LEAGUE_SUCCESS:
         case C.JOIN_LEAGUE_SUCCESS:
-            return action.league_id
+            return [
+                ...state,
+                simpleLeague({}, action)
+            ]
+        case C.LOGIN_SUCCESS:
+            var rtnLeagues = [];
+                action.leagues.map(x => rtnLeagues.push(simpleLeague({}, action)))
+        return rtnLeagues
         default :
             return state;
     }
 }
 
-leagueIdToView
-
-export const leagues = (state = [], action={ type: null }) => {
+export const simpleLeague = (state = {}, action={ type: null }) => {
     switch (action.type){
         case C.CREATE_LEAGUE_SUCCESS:
         case C.JOIN_LEAGUE_SUCCESS:
+        case C.LOGIN_SUCCESS:
+        return {
+            league_id : action.league_id,
+            league_name : action.league_name
+        }
+        case C.LOGIN_SUCCESS:
+
+            return 
+            {}
+        default :
+            return state;
+    }
+}
+
+export const activeLeague = (state = {}, action={ type: null }) => {
+    switch (action.type){
+        case C.CREATE_LEAGUE_SUCCESS:
+        case C.JOIN_LEAGUE_SUCCESS:
+        case C.CLICKED_LEAGUE:
             return {
+                success : true,
+                league_id : action.league_id,
                 league_name : action.league_name,
                 total_players : action.owners.length,
                 max_owners : action.max_owners,
                 owners : action.owners
             }
+        case C.LOGOUT:
+            return {
+                success : false,
+            }
         default:
                 return state
 
-    }
-    
+    }  
 }
 
 export const teams = (state = [], action={ type: null }) => {
