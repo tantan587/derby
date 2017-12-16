@@ -6,6 +6,17 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Card, CardText } from 'material-ui/Card';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import {
+	Table,
+	TableBody,
+	TableFooter,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+  } from 'material-ui/Table';
+  import SortableTable from './SortableTable'
 
 const style = {
 loginText: {
@@ -27,7 +38,13 @@ loginText: {
 	position: 'absolute',
   	left: '50%',
   	margin: '0px 0 0 -50px',
-	}
+	},
+	headline: {
+		fontSize: 24,
+		paddingTop: 16,
+		marginBottom: 12,
+		fontWeight: 400,
+	  },
 }
 
 class League extends Component {
@@ -61,12 +78,73 @@ class League extends Component {
 		<div onKeyPress={(event) => this.keypress(event)}>
 			<MuiThemeProvider>
 				<div>
-					<Card>
-						<h1 style={style.loginText}>{this.props.activeLeague.league_name}</h1>
-						<div style={style.loginBoard}>
-						<CardText>More information here about the league soon!</CardText>
+				<Tabs>
+					<Tab label="Standings" >
+						<div>
+						<Table
+							height={this.state.height}
+							fixedHeader={true}
+							fixedFooter={true}
+						>
+						<TableHeader displaySelectAll={false}
+						displayRowCheckbox={false}
+						adjustForCheckbox={false}>
+						  <TableRow>
+							<TableHeaderColumn colSpan="4" tooltip="Standings" style={{textAlign: 'center'}}>
+							  Standings
+							</TableHeaderColumn>
+						  </TableRow>
+						  <TableRow style={{cursor: 'pointer'}}>
+							<TableHeaderColumn tooltip="The ID">Rank</TableHeaderColumn>
+							<TableHeaderColumn tooltip="Owner">Owner</TableHeaderColumn>
+							<TableHeaderColumn tooltip="Username">Username</TableHeaderColumn>
+							<TableHeaderColumn tooltip="Points">Points</TableHeaderColumn>
+						  </TableRow>
+						</TableHeader>
+						<TableBody
+						  stripedRows={true}
+						  displayRowCheckbox={false}
+						  displaySelectAll={false}
+						  adjustForCheckbox={false}
+						>
+						  {this.props.activeLeague.success ? this.props.activeLeague.owners.map((row, index) => (
+							<TableRow key={index}>
+							  <TableRowColumn>{index+1}</TableRowColumn>
+							  <TableRowColumn>{row.owner_name}</TableRowColumn>
+							  <TableRowColumn>{row.username}</TableRowColumn>
+							  <TableRowColumn>{row.total_points}</TableRowColumn>
+							</TableRow>
+							)) : <div></div>}
+						</TableBody>
+					  </Table>
 						</div>
-					</Card>
+						</Tab>
+						<Tab label="Item Two" >
+						<div>
+							<SortableTable 
+								myRows={this.props.activeLeague.owners} 
+								myHeaders = {[
+									{name: "Owner", key: "owner_name"},
+									{name: "User", key: "username"},
+									{name: "Points", key: "total_points"}
+									]}
+								title='Standings'/>
+								
+						</div>
+						</Tab>
+						<Tab
+						label="onActive"
+						data-route="/home"
+						//onActive={handleActive}
+						>
+						<div>
+							<h2 style={style.headline}>Tab Three</h2>
+							<p>
+							This is a third example tab.
+							</p>
+						</div>
+						</Tab>
+					</Tabs>
 				</div>
 			</MuiThemeProvider>
 		</div>

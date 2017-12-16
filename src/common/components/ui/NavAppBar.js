@@ -13,7 +13,8 @@ import '../../../stylesheets/Menu.scss'
 
 const style = {
   title: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    textAlign : 'center'
   },
   barbuttons: {
     marginTop: '6px'
@@ -71,7 +72,7 @@ export default class NavAppBar extends Component {
           <div>
           	<AppBar
               onLeftIconButtonTouchTap={this.handleToggle}
-             	title={<span style={style.title}>Derby</span>}
+             	title={<span style={style.title}>{this.props.activeLeague.success ? this.props.activeLeague.league_name : 'Derby'}</span>}
               onTitleTouchTap={this.handleTitleTouchTap}
               iconElementRight={
               <div style={style.barbuttons}>

@@ -17,7 +17,8 @@ export const NavBar = connect(
     state =>
     ({
         user : state.user,
-        leagues : state.leagues
+        leagues : state.leagues,
+        activeLeague : state.activeLeague
     }),
     dispatch =>
     ({
