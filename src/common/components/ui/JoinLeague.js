@@ -73,19 +73,19 @@ class JoinLeague extends Component {
 			       		<TextField
 			         		hintText="Enter League Name"
 			         		floatingLabelText="League Name"
-							errorText={this.props.user.error.league_name || ""}
+							errorText={this.props.user.error.join_league_name || ""}
 			         		onChange = {(event,newValue) => this.setState({league_name:newValue})}/>
 			           	<br/>
 			         	<TextField
 			           		hintText="Enter League Password"
 			           		floatingLabelText="League Password"
-							errorText={this.props.user.error.league_password || ""}
+							errorText={this.props.user.error.join_league_password || ""}
 			           		onChange = {(event,newValue) => this.setState({league_password:newValue})}/>
 						<br/>
 						<TextField
 			           		hintText="Enter Your Owner Name"
 			           		floatingLabelText="Your Owner Name"
-							errorText={this.props.user.error.owner_name || ""}
+							errorText={this.props.user.error.join_owner_name || ""}
 			           		onChange = {(event,newValue) => this.setState({owner_name:newValue})}/>
 						<br/>
 						 <RaisedButton 

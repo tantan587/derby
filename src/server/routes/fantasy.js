@@ -10,7 +10,7 @@ import { v4 } from 'uuid'
 router.post('/createleague', authHelpers.loginRequired, (req, res, next)  => {
   return createLeague(req, res)
   .then((response) => { 
-      return getLeague(response.league_id, res)
+      return getLeague(response.league_id, res, C.CREATE_LEAGUE_SUCCESS)
   })
   .catch((err) => { 
     handleResponse(res, 500, 'error'); });
@@ -19,10 +19,14 @@ router.post('/createleague', authHelpers.loginRequired, (req, res, next)  => {
 router.post('/joinleague', authHelpers.loginRequired, (req, res, next)  => {
   return joinLeague(req, res)
   .then((response) => { 
-    return getLeague(response.league_id,res)
+    return getLeague(response.league_id,res, C.JOIN_LEAGUE_SUCCESS)
   })
   .catch((err) => { 
     handleResponse(res, 500, 'error'); });
+});
+
+router.post('/clickleague', authHelpers.loginRequired, (req, res, next)  => {
+    return getLeague(req.body.league_id,res, C.CLICKED_LEAGUE)
 });
 
 function handleReduxResponse(res, code, action){
@@ -115,10 +119,13 @@ function handleCreateErrors(req) {
   return new Promise((resolve, reject) => {
     let errorText = new ErrorText();
     if (req.body.leagueInfo.league_name.length < 5) {
-      errorText.addError('username','Username must be longer than five characters')
+      errorText.addError('create_league_name','League name must be longer than five characters')
     }
     if (req.body.leagueInfo.league_password.length < 5) {
-      errorText.addError('password','Password must be longer than five characters')
+      errorText.addError('create_password','Password must be longer than five characters')
+    }
+    if (req.body.leagueInfo.owner_name.length < 5) {
+      errorText.addError('create_owner_name',"Owner name must be longer than five characters")
     }
      if (errorText.foundError) {
       reject({
@@ -138,12 +145,12 @@ function handleCreateErrors(req) {
           if (result.rows[0].league_name == 1) 
           {
             let a = 1;
-            errorText.addError('username','Username already exists. Please choose a different one')
+            errorText.addError('create_username','Username already exists. Please choose a different one')
           }
           if (errorText.foundError) {
             reject({
-              type: C.SIGNUP_FAIL,
-              error: new ErrorText()});
+              type: C.CREATE_LEAGUE_FAIL,
+              error: errorText});
           }
           else
           {
@@ -158,7 +165,7 @@ function handleJoinErrors(req) {
   return new Promise((resolve, reject) => {
     let errorText = new ErrorText();
     if (req.body.owner_name.length < 5) {
-      errorText.addError('owner_name',"Owner name must be longer than five characters")
+      errorText.addError('join_owner_name',"Owner name must be longer than five characters")
     }
      if (errorText.foundError) {
       reject({
@@ -183,19 +190,19 @@ function handleJoinErrors(req) {
           }
           if (result.rows[0].leagueexists === "0") 
           {
-            errorText.addError('league_name',"Can not find this league")
+            errorText.addError('join_league_name',"Can not find this league")
           }
           if (result.rows[0].leagueexists === "1" && result.rows[0].passconfirm === "0") 
           {
-            errorText.addError('league_password',"password does not match")
+            errorText.addError('join_league_password',"password does not match")
           }
           if (result.rows[0].leagueexists === "1" && result.rows[0].joined === "1") 
           {
-            errorText.addError('league_name',"You've already joined this league")
+            errorText.addError('join_league_name',"You've already joined this league")
           }
           if (result.rows[0].leagueexists === "1" && result.rows[0].ownername === "1") 
           {
-            errorText.addError('owner_name',"Owner name already taken")
+            errorText.addError('join_owner_name',"Owner name already taken")
           }
           if (errorText.foundError) {
             reject({
@@ -211,7 +218,7 @@ function handleJoinErrors(req) {
   });
 }
 
-const getLeague = (league_id, res) =>{
+const getLeague = (league_id, res, type) =>{
 
 
     var str = "select a.*, b.username, c.league_name, c.max_owners, c.league_id from fantasy.owners a, users.users b, fantasy.leagues c where a.league_id = '" + league_id +
@@ -233,7 +240,7 @@ const getLeague = (league_id, res) =>{
               user_id: owner.user_id
             }))
           return handleReduxResponse(res,200, {
-            type: C.CREATE_LEAGUE_SUCCESS,
+            type: type,
             league_name : league_name,
             max_owners : max_owners,
             league_id : league_id,

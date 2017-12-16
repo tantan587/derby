@@ -9,21 +9,25 @@ import Home from '../ui/Home'
 import Logout from '../ui/Logout'
 import AddColorForm from '../ui/AddColorForm'
 import { addColor, rateColor, removeColor,clickedLogin, clickedSignup, clickedLogout} from '../../actions/auth-actions'
-import { clickedStandings} from '../../actions/leagues-actions'
+import { clickedStandings, clickedLeague} from '../../actions/leagues-actions'
 import { findById } from '../../lib/array-helpers'
 import { sortColors } from '../../lib/array-helpers'
 
 export const NavBar = connect(
     state =>
     ({
-        user : state.user
+        user : state.user,
+        leagues : state.leagues
     }),
     dispatch =>
-        ({
-            onClickedStandings() {
-                dispatch(clickedStandings())
-            }
-        })
+    ({
+        onClickedStandings() {
+            dispatch(clickedStandings())
+        },
+        onClickedLeague(league_id) {
+            dispatch(clickedLeague(league_id))
+        }
+    })
 )(NavAppBar)
 
 export const HomePage = connect(

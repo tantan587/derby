@@ -62,7 +62,7 @@ class League extends Component {
 			<MuiThemeProvider>
 				<div>
 					<Card>
-						<h1 style={style.loginText}>{this.props.leagues.league_name}</h1>
+						<h1 style={style.loginText}>{this.props.activeLeague.league_name}</h1>
 						<div style={style.loginBoard}>
 						<CardText>More information here about the league soon!</CardText>
 						</div>

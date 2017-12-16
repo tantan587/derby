@@ -113,13 +113,17 @@ class CreateLeague extends Component {
 							<TableRowColumn style={style.tableText}>League Name</TableRowColumn>
 							<TableRowColumn style={style.tableText}>
 							<TextField inputStyle={{textAlign: 'center'}} id="1"
+							errorText={this.props.user.error.create_league_name || ""}
 							onChange = {(event,newValue) => this.setState({league_name:newValue})}/>
 							</TableRowColumn>
 						</TableRow>
 						<TableRow>
 							<TableRowColumn style={style.tableText}>League Password</TableRowColumn>
 							<TableRowColumn style={style.tableText}>
-							<TextField inputStyle={{textAlign: 'center'}} id="2"
+							<TextField 
+							inputStyle={{textAlign: 'center'}} 
+								id="2"
+								errorText={this.props.user.error.create_password || ""}
 								onChange = {(event,newValue) => this.setState({league_password:newValue})}/>
 							</TableRowColumn>
 						</TableRow>
@@ -178,6 +182,7 @@ class CreateLeague extends Component {
 							<TableRowColumn style={style.tableText}>Your Owner Name</TableRowColumn>
 						<TableRowColumn style={style.tableText}>
 							<TextField inputStyle={{textAlign: 'center'}} id="3"
+							errorText={this.props.user.error.create_owner_name || ""}
 								onChange = {(event,newValue) => this.setState({owner_name:newValue})}/>
 							</TableRowColumn>
 						</TableRow>									

@@ -61,7 +61,8 @@ export const JoinALeaguePage = connect(
 export const MainLeaguePage = connect(
     state =>
         ({
-            leagues : state.leagues
+            leagues : state.leagues,
+            activeLeague : state.activeLeague
         }),
     dispatch =>
     ({

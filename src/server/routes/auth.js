@@ -3,7 +3,6 @@ const router = express.Router();
 const authHelpers = require('../auth/_helpers');
 const passport = require('../auth/local');
 import C from '../../common/constants'
-import AuthError from "../../common/models/AuthError"
 import ErrorText from "../../common/models/ErrorText"
 
 router.post('/signup', authHelpers.loginRedirect, (req, res, next)  => {
@@ -38,11 +37,11 @@ router.post('/login', authHelpers.loginRedirect, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) { handleResponse(res, 500, 'error'); }
     if (!user) { 
-      var authError = new AuthError();
-      authError.addError('login','password','Username / Password does not match')
+      var errorText = new ErrorText();
+      errorText.addError('login_password','Username / Password does not match')
       handleReduxResponse(res, 404, {
       type: C.LOGIN_FAIL,
-      error: authError
+      error: errorText
     }); }
     if (user) {
       req.login(user, function (err) {

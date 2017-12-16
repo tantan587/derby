@@ -39,6 +39,7 @@ export default class NavAppBar extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleTitleTouchTap = this.handleTitleTouchTap.bind(this);
     this.handleStandingsClick = this.handleStandingsClick.bind(this);
+    this.handleLeagueClick = this.handleLeagueClick.bind(this);
   }
 
   handleToggle() {
@@ -49,6 +50,12 @@ export default class NavAppBar extends Component {
     const { onClickedStandings } = this.props
     this.handleToggle()
     onClickedStandings()
+  }
+
+  handleLeagueClick(league_id) {
+    const { onClickedLeague } = this.props
+    this.handleToggle()
+    onClickedLeague(league_id)
   }
 
   handleTitleTouchTap() {
@@ -94,17 +101,15 @@ export default class NavAppBar extends Component {
             <ListItem
               //containerElement={<Link to="/about" />}
               //onClick={this.handleToggle}
-              primaryText="My Leagues"
-              initiallyOpen={true}
-              open={true}
-              primaryTogglesNestedList={false}
-              nestedItems={[
-                <ListItem
-                key={1}
-                containerElement={<Link to="/joinleague" />}
-                onClick={this.handleToggle}
-                primaryText="Join A League"
-              />]}/>  
+              primaryText={this.props.leagues.length > 0 ? "My Leagues" : "No Leagues Yet"}
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={this.props.leagues.map((league, i) => 
+                <LeagueListItem
+                myKey={i}
+                league={league}
+                myClick={this.handleLeagueClick}
+              />)}/>  
             <ListItem
               containerElement={<Link to="/about" />}
               onClick={this.handleToggle}
@@ -141,7 +146,27 @@ export default class NavAppBar extends Component {
     )
   }
 }
-    /*<nav className="menu">
-        <Link to="/colormenu">Login</Link>
-    </nav>*/
+
+class LeagueListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick= this.handleClick.bind(this);
+}
+  handleClick()  {
+    const { myClick } = this.props
+    myClick(this.props.league.league_id);
+  }
+
+  render() {
+    return (
+      <ListItem
+          key={this.props.myKey}
+          containerElement={<Link to="/mainleague" />}
+          onClick={this.handleClick}
+          primaryText={this.props.league.league_name}
+          style={{marginLeft:18}}
+      />
+    );
+  }
+}
 

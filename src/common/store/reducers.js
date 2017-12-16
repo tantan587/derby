@@ -1,5 +1,5 @@
 import C from '../constants'
-import AuthError from '../models/AuthError'
+import ErrorText from '../models/ErrorText'
 
 
 export const user = (state = {}, action={ type: null }) => {
@@ -13,7 +13,7 @@ export const user = (state = {}, action={ type: null }) => {
                 last_name: action.last_name,
                 username: action.username,
                 loggedIn: true,
-                error: new AuthError()
+                error: new ErrorText()
             }
         case C.SIGNUP_FAIL:
         case C.LOGIN_FAIL:
@@ -32,8 +32,7 @@ export const user = (state = {}, action={ type: null }) => {
                 last_name: "",
                 username: "",
                 loggedIn: false,
-                //message: ""
-                error: new AuthError()
+                error: new ErrorText()
             }
         case C.CREATE_LEAGUE_FAIL:
         case C.JOIN_LEAGUE_FAIL:
@@ -52,32 +51,19 @@ export const leagues = (state = [], action={ type: null }) => {
         case C.JOIN_LEAGUE_SUCCESS:
             return [
                 ...state,
-                simpleLeague({}, action)
+                simpleLeague(action)
             ]
         case C.LOGIN_SUCCESS:
-            var rtnLeagues = [];
-                action.leagues.map(x => rtnLeagues.push(simpleLeague({}, action)))
-        return rtnLeagues
+            return action.leagues
         default :
             return state;
     }
 }
 
-export const simpleLeague = (state = {}, action={ type: null }) => {
-    switch (action.type){
-        case C.CREATE_LEAGUE_SUCCESS:
-        case C.JOIN_LEAGUE_SUCCESS:
-        case C.LOGIN_SUCCESS:
-        return {
-            league_id : action.league_id,
-            league_name : action.league_name
-        }
-        case C.LOGIN_SUCCESS:
-
-            return 
-            {}
-        default :
-            return state;
+export const simpleLeague = (action) => {
+    return {
+        league_id : action.league_id,
+        league_name : action.league_name
     }
 }
 

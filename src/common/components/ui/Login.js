@@ -67,14 +67,14 @@ class Login extends Component {
 			       		<TextField
 			         		hintText="Enter your Username"
 			         		floatingLabelText="Username"
-							errorText={this.props.user.error.login.username || ""}
+							errorText={this.props.user.error.login_username || ""}
 			         		onChange = {(event,newValue) => this.setState({username:newValue})}/>
 			           	<br/>
 			         	<TextField
 			           		type="password"
 			           		hintText="Enter your Password"
 			           		floatingLabelText="Password"
-							errorText={this.props.user.error.login.password || ""}
+							errorText={this.props.user.error.login_password || ""}
 			           		onChange = {(event,newValue) => this.setState({password:newValue})}/>
 						<CardText>Don't have an account? <Link to={'/signup'}>Sign up</Link></CardText>
 						<br/>

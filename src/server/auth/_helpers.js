@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt-nodejs');
 const knex = require('../db/connection');
-import AuthError from "../../common/models/AuthError"
+import ErrorText from "../../common/models/ErrorText"
 import C from '../../common/constants'
 import { v4 } from 'uuid'
 
@@ -63,20 +63,20 @@ function validateEmail(email) {
 function handleErrors(req) {
   return new Promise((resolve, reject) => {
     let foundError = false;
-    let authError = new AuthError();
+    let errorText = new ErrorText();
     if (req.body.username.length < 6) {
-      authError.addError('signup','username','Username must be longer than six characters')
+      errorText.addError('signup_username','Username must be longer than six characters')
     }
     if (req.body.password.length < 6) {
-      authError.addError('signup','password','Password must be longer than six characters')
+      errorText.addError('signup_password','Password must be longer than six characters')
     }
     if (validateEmail(req.body.email)=== false) {
-      authError.addError('signup','email','Not proper email format')
+      errorText.addError('signup_email','Not proper email format')
     }
-     if (authError.foundError) {
+     if (errorText.foundError) {
       reject({
         type: C.SIGNUP_FAIL,
-        error: authError
+        error: errorText
       });
     }
      else {
@@ -91,16 +91,16 @@ function handleErrors(req) {
           }
           if (result.rows[0].username == 1) 
           {
-            authError.addError('signup','username','Username already exists. Please choose a different one')
+            errorText.addError('signup_username','Username already exists. Please choose a different one')
           }
           if (result.rows[0].email == 1) 
           {
-            authError.addError('signup','email','Email has already be registered. Please choose a different one')
+            errorText.addError('signup_email','Email has already be registered. Please choose a different one')
           }
-          if (authError.foundError) {
+          if (errorText.foundError) {
             reject({
               type: C.SIGNUP_FAIL,
-              error: authError});
+              error: errorText});
           }
           else
           {
@@ -113,10 +113,6 @@ function handleErrors(req) {
 
 const getUserLeagues = (user, cb) =>{
   
-  
-      var str = "select b.league_name, b.league_id from fantasy.owners a, fantasy.leagues b where a.user_id = '" + user.user_id +
-      "' and b.league_id = a.league_id"
-      //knex.raw(str)
       return  knex.withSchema('fantasy').table('leagues').where('user_id',user.user_id).innerJoin('owners', 'leagues.league_id', 'owners.league_id')
       .then(result =>
         {

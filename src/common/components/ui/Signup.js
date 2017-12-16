@@ -79,7 +79,7 @@ class Signup extends Component {
 								<TextField
 									hintText="Enter a Username"
 									floatingLabelText="Username"
-									errorText={this.props.user.error.signup.username || ""}
+									errorText={this.props.user.error.signup_username || ""}
 									onChange = {(event,newValue) => this.setState({username:newValue})}
 									/>
 								<br/> 
@@ -99,7 +99,7 @@ class Signup extends Component {
 									hintText="Enter your Email"
 									type="email"
 									floatingLabelText="Email"
-									errorText={this.props.user.error.signup.email || ""}
+									errorText={this.props.user.error.signup_email || ""}
 									onChange = {(event,newValue) => this.setState({email:newValue})}
 									/>
 								<br/>
@@ -107,7 +107,7 @@ class Signup extends Component {
 									type = "password"
 									hintText="Enter your Password"
 									floatingLabelText="Password"
-									errorText={this.props.user.error.signup.password || ""}
+									errorText={this.props.user.error.signup_password || ""}
 									onChange = {(event,newValue) => this.setState({password:newValue})}/>
 									<CardText>Already have an account? <Link to={'/login'}>Log In</Link></CardText>
 									<br/>

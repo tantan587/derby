@@ -23,7 +23,7 @@ const App = () =>
             <Route path="/signup/" component={Signup}/>
             <Route path="/standings/nba/" component={LeaguePage}/>
             <Route path="/joinleague/" component={JoinLeague}/>
-            <Route path="/createleague/" component={CreateLeaguePage}/>
+            <Route path="/createleague/" component={CreateLeague}/>
             <Route path="/mainleague/" component={MainLeaguePage}/>
             <Route exact path="/colormenu/:id" component={Color} />
             <Route path="/colormenu/"
