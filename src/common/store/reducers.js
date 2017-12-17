@@ -40,6 +40,16 @@ export const user = (state = {}, action={ type: null }) => {
             ...state,
             error : action.error
         }
+        case C.CREATE_LEAGUE_SUCCESS:
+        case C.JOIN_LEAGUE_SUCCESS:
+        {
+            let errorText = new ErrorText();
+            errorText.addError('success',true)
+            return {
+            ...state,
+            error : errorText
+            }
+        }
         default :
             return state    
     }

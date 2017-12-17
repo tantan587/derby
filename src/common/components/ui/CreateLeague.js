@@ -61,7 +61,8 @@ class CreateLeague extends Component {
 					EPL:false,
 					max_owners:8,
 					privateInd:true,
-					owner_name:""
+					owner_name:"",
+					fireRedirect : false
         }
 	}	
 
@@ -72,9 +73,8 @@ class CreateLeague extends Component {
 	handleSubmit(e)
 	{
 			const {onCreateLeague} = this.props
-			this.setState({ numPlayerError:false })
-			const { onLogin } = this.props
 			e.preventDefault()
+			this.setState({fireRedirect : true})
 			onCreateLeague(this.state)	
 	}
 
@@ -88,7 +88,7 @@ class CreateLeague extends Component {
     	}
 	}
     render() {
-			if(this.props.activeLeague.success === true){
+			if(this.props.user.error.success === true && this.state.fireRedirect){
 				return (<Redirect to={'/'}></Redirect>)
 			}
 			else{

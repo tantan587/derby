@@ -11,10 +11,24 @@ const sortByNumber = field =>
 
 const whichSort = (type, field) =>
     (type === "date") ?
-        sortByDate(field) :
+        sortByDate(field) : 
         (type === "string") ?
             sortByString(field) :
             sortByNumber(field)
+
+const determineType = (data, field) =>
+{
+    let type = data.length > 0 ? typeof data[0][field] : 'string'
+    return whichSort(type, field)
+}
+
+export const sortData = (data, field) => compose(
+    fn => [...data].sort(fn),
+    determineType
+)(data, field)
+            
+
+
 
 export const sortFunction = sort =>
     (sort === "SORTED_BY_TITLE") ?

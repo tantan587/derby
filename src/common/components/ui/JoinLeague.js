@@ -34,32 +34,38 @@ class JoinLeague extends Component {
 
     constructor(props) {
         super(props)
-		this.submit = this.submit.bind(this)
+		this.pressSubmit = this.pressSubmit.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
 		this.keypress = this.keypress.bind(this)
         this.state={
         	league_name:'',
 			league_password:'',
 			owner_name:'',
+			fireRedirect: false
         }
-    }
+	}
+	
+	handleSubmit(e)
+	{
+			const {onJoinLeague} = this.props
+			e.preventDefault()
+			this.setState({fireRedirect : true})
+			onJoinLeague(this.state.league_name, this.state.league_password,this.state.owner_name)	
+	}
 
-    submit(e) {
-        const { onJoinLeague } = this.props
-        e.preventDefault()
-        onJoinLeague(this.state.league_name, this.state.league_password,this.state.owner_name)
-    }
+    pressSubmit(e) {
+        this.handleSubmit(e)
+	}
 
     keypress(e) {
     	if (e.key === 'Enter') { 
-        	const { onJoinLeague } = this.props
-        	e.preventDefault()
-        	onJoinLeague(this.state.league_name, this.state.league_password,this.state.owner_name)
+        	handleSubmit(e)
     	}
-    }
+	}
 
 	render() 
 	{
-		if(this.props.activeLeague.success === true){
+		if(this.props.user.error.success === true && this.state.fireRedirect){
 			return (<Redirect to={'/'}></Redirect>)
 		}
 		else{
@@ -92,7 +98,7 @@ class JoinLeague extends Component {
 			     			label="Submit"
 							style={style.submitButton} 
 			     			primary={true} 
-		         		 	onClick={(event) => this.submit(event)}/>
+		         		 	onClick={(event) => this.pressSubmit(event)}/>
 						</div>
 					</Card>
 				</div>

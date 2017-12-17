@@ -81,46 +81,6 @@ class League extends Component {
 				<Tabs>
 					<Tab label="Standings" >
 						<div>
-						<Table
-							height={this.state.height}
-							fixedHeader={true}
-							fixedFooter={true}
-						>
-						<TableHeader displaySelectAll={false}
-						displayRowCheckbox={false}
-						adjustForCheckbox={false}>
-						  <TableRow>
-							<TableHeaderColumn colSpan="4" tooltip="Standings" style={{textAlign: 'center'}}>
-							  Standings
-							</TableHeaderColumn>
-						  </TableRow>
-						  <TableRow style={{cursor: 'pointer'}}>
-							<TableHeaderColumn tooltip="The ID">Rank</TableHeaderColumn>
-							<TableHeaderColumn tooltip="Owner">Owner</TableHeaderColumn>
-							<TableHeaderColumn tooltip="Username">Username</TableHeaderColumn>
-							<TableHeaderColumn tooltip="Points">Points</TableHeaderColumn>
-						  </TableRow>
-						</TableHeader>
-						<TableBody
-						  stripedRows={true}
-						  displayRowCheckbox={false}
-						  displaySelectAll={false}
-						  adjustForCheckbox={false}
-						>
-						  {this.props.activeLeague.success ? this.props.activeLeague.owners.map((row, index) => (
-							<TableRow key={index}>
-							  <TableRowColumn>{index+1}</TableRowColumn>
-							  <TableRowColumn>{row.owner_name}</TableRowColumn>
-							  <TableRowColumn>{row.username}</TableRowColumn>
-							  <TableRowColumn>{row.total_points}</TableRowColumn>
-							</TableRow>
-							)) : <div></div>}
-						</TableBody>
-					  </Table>
-						</div>
-						</Tab>
-						<Tab label="Item Two" >
-						<div>
 							<SortableTable 
 								myRows={this.props.activeLeague.owners} 
 								myHeaders = {[
@@ -129,12 +89,36 @@ class League extends Component {
 									{name: "User", key: "username"},
 									{name: "Points", key: "total_points"}
 									]}
-								title='Standings'/>
+								title={this.props.activeLeague.league_name}/>
 								
 						</div>
 						</Tab>
 						<Tab
-						label="onActive"
+						label="Tab 2"
+						data-route="/home"
+						//onActive={handleActive}
+						>
+						<div>
+							<h2 style={style.headline}>Tab Three</h2>
+							<p>
+							This is a third example tab.
+							</p>
+						</div>
+						</Tab>
+						<Tab
+						label="Tab 3"
+						data-route="/home"
+						//onActive={handleActive}
+						>
+						<div>
+							<h2 style={style.headline}>Tab Three</h2>
+							<p>
+							This is a third example tab.
+							</p>
+						</div>
+						</Tab>
+						<Tab
+						label="Tab 4"
 						data-route="/home"
 						//onActive={handleActive}
 						>

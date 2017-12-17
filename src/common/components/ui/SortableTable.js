@@ -1,6 +1,7 @@
 import React from 'react';
 import { MuiThemeProvider} from 'material-ui';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
+import { sortData } from '../../lib/array-helpers'
 
 // properties of TableHeader component
 let headerProps = {
@@ -8,15 +9,6 @@ let headerProps = {
   displaySelectAll: false,
   adjustForCheckbox: false
 };
-
-// our table hader information, key is the name of the 
-// property to sort by when the header is clicked 
-let headers = [
-  {name: "Rank", key: "rank"},
-  {name: "Owner", key: "owner_name"},
-  {name: "User", key: "username"},
-  {name: "Points", key: "total_points"}
-];
 
 
 // our table component that can sort columns
@@ -57,15 +49,8 @@ class SortableTable extends React.Component {
         this.setState( {myRows: [...this.state.myRows.reverse()]} );
         return;
       }
-      
-      let myRows = [...this.state.myRows];
-      myRows.sort( (a,b) => {
-        if (a[sortBy] < b[sortBy])
-          return -1;
-        if(a[sortBy] > b[sortBy])
-          return 1;
-        return 0;
-      });
+            
+      let myRows = sortData(this.state.myRows,sortBy)
       
       this.setState({myRows, sortBy});
     }
