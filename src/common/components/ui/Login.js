@@ -18,9 +18,9 @@ loginText: {
   },
   loginBoard: {
 	position: 'absolute',
-  	top: '50%',
+  	//top: '50%',
   	left: '50%',
-  	margin: '-300px 0 0 -120px',
+  	margin: '100px 0 0 -120px',
 	},
 
   submitButton: {
