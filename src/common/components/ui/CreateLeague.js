@@ -89,7 +89,7 @@ class CreateLeague extends Component {
 	}
     render() {
 			if(this.props.activeLeague.success === true){
-				return (<Redirect to={'/mainleague'}></Redirect>)
+				return (<Redirect to={'/'}></Redirect>)
 			}
 			else{
 					return (

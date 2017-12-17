@@ -69,8 +69,6 @@ export const simpleLeague = (action) => {
 
 export const activeLeague = (state = {}, action={ type: null }) => {
     switch (action.type){
-        case C.CREATE_LEAGUE_SUCCESS:
-        case C.JOIN_LEAGUE_SUCCESS:
         case C.CLICKED_LEAGUE:
             return {
                 success : true,

@@ -10,7 +10,7 @@ import { v4 } from 'uuid'
 router.post('/createleague', authHelpers.loginRequired, (req, res, next)  => {
   return createLeague(req, res)
   .then((response) => { 
-      return getLeague(response.league_id, res, C.CREATE_LEAGUE_SUCCESS)
+      return getSimpleLeague(response.league_id, res, C.CREATE_LEAGUE_SUCCESS)
   })
   .catch((err) => { 
     handleResponse(res, 500, 'error'); });
@@ -19,10 +19,10 @@ router.post('/createleague', authHelpers.loginRequired, (req, res, next)  => {
 router.post('/joinleague', authHelpers.loginRequired, (req, res, next)  => {
   return joinLeague(req, res)
   .then((response) => { 
-    return getLeague(response.league_id,res, C.JOIN_LEAGUE_SUCCESS)
+    return getSimpleLeague(response.league_id,res, C.JOIN_LEAGUE_SUCCESS)
   })
   .catch((err) => { 
-    handleResponse(res, 500, 'error'); });
+    handleResponse(res, 500, err); });
 });
 
 router.post('/clickleague', authHelpers.loginRequired, (req, res, next)  => {
@@ -55,17 +55,29 @@ function createLeague(req, res) {
         })
         .returning('*')
         .then((response) => {
+          let owner_id = v4()
           return knex.withSchema('fantasy').table("owners")
             .transacting(t)
             .insert({
               league_id: response[0].league_id,
               user_id: req.user.user_id,
-              owner_id: v4(),
+              owner_id: owner_id,
               owner_name:  req.body.leagueInfo.owner_name,
               commissioner: true
             })
-            .then(()=>{
-              return response[0]})
+            .then(() => {
+              return knex.withSchema('fantasy').table("points")
+                .transacting(t)
+                .insert({
+                  owner_id: owner_id,
+                  total_points: 0,
+                  rank: 1
+                })
+                .then(()=>{
+                  return response[0]})
+            .then((response)=>{
+              return response})
+            })
         })
         .then((response)=>{
           t.commit
@@ -88,20 +100,32 @@ function joinLeague(req, res) {
   return handleJoinErrors(req)
   .then((league_id) => {
     return knex.transaction(function (t) {
+      let owner_id = v4()
       return knex.withSchema('fantasy').table("owners")
       .transacting(t)
       .insert({
         league_id: league_id,
         user_id: req.user.user_id,
-        owner_id: v4(),
+        owner_id: owner_id,
         owner_name:  req.body.owner_name,
         commissioner: false
       })
       .returning('*')
-        .then((response)=>{
-          t.commit
-          return response[0]})
-        .catch(t.rollback)
+      .then((response) => {
+        return knex.withSchema('fantasy').table("points")
+          .transacting(t)
+          .insert({
+            owner_id: owner_id,
+            total_points: 0,
+            rank: 1
+          })
+          .then(()=>{
+            return response[0]})
+        })
+      .then((response)=>{
+        t.commit
+        return response})
+      .catch(t.rollback)
     })
     .then((response)=>{
       return response
@@ -218,12 +242,37 @@ function handleJoinErrors(req) {
   });
 }
 
+const getSimpleLeague = (league_id, res, type) =>{
+  
+      return knex.withSchema('fantasy')
+      .table('leagues')
+      .where('league_id',league_id)
+      .then(result =>
+        {
+          if (result.length > 0) 
+          {
+            var league_name = result[0].league_name;
+            var league_id = result[0].league_id;
+            return handleReduxResponse(res,200, {
+              type: type,
+              league_name : league_name,
+              league_id : league_id
+            })
+          }
+          else
+          {
+            return handleReduxResponse(res,400, {});
+          }
+        })
+    }
+
 const getLeague = (league_id, res, type) =>{
 
 
-    var str = "select a.*, b.username, c.league_name, c.max_owners, c.league_id from fantasy.owners a, users.users b, fantasy.leagues c where a.league_id = '" + league_id +
-    "' and a.user_id = b.user_id and a.league_id = c.league_id"
-    knex.raw(str)
+    var str = "select a.*, b.username, c.league_name, c.max_owners, c.league_id, d.total_points, d.rank from " +
+    "fantasy.owners a, users.users b, fantasy.leagues c, fantasy.points d where a.league_id = '" + league_id +
+    "' and a.user_id = b.user_id and a.league_id = c.league_id and a.owner_id = d.owner_id"
+    return knex.raw(str)
     .then(result =>
       {
         if (result.rows.length > 0) 
@@ -235,7 +284,8 @@ const getLeague = (league_id, res, type) =>{
           result.rows.map(owner => owners.push(
             {
               owner_name:owner.owner_name, 
-              total_points:0,
+              total_points:owner.total_points,
+              rank:owner.rank,
               username:owner.username,
               user_id: owner.user_id
             }))

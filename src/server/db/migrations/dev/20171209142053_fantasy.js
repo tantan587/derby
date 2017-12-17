@@ -11,10 +11,10 @@ exports.up = function(knex, Promise) {
       table.integer('total_enrolled').notNullable()
       table.timestamps();
     }),
-    knex.schema.withSchema('fantasy').createTable('users', (table) => {
+    knex.schema.withSchema('fantasy').createTable('owners', (table) => {
       table.increments();
       table.string('league_id').notNullable()
-      table.string('user_id').notNullable();
+      table.string('owner_id').notNullable();
       table.string('roster_id').unique().notNullable();
       table.string('roster_name').notNullable()
       table.boolean('commissioner').notNullable()
@@ -24,7 +24,7 @@ exports.up = function(knex, Promise) {
       table.increments();
 
       table.string('league_id').notNullable();
-      table.string('roster_id').notNullable();
+      table.string('owner_id').notNullable();
       table.decimal('sports_team_id',6,0).notNullable();
       table.integer('total_points').notNullable()
       table.timestamps();

@@ -124,6 +124,7 @@ class League extends Component {
 							<SortableTable 
 								myRows={this.props.activeLeague.owners} 
 								myHeaders = {[
+									{name: "Rank", key: "rank"},
 									{name: "Owner", key: "owner_name"},
 									{name: "User", key: "username"},
 									{name: "Points", key: "total_points"}
